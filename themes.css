@@ -1,0 +1,502 @@
+/* ========================================================== */
+/* ĐỒNG BỘ DARK MODE CHO KHUNG ĐĂNG NHẬP BÊN PHẢI              */
+/* ========================================================== */
+body.theme-christmas.dark-mode .right-panel,
+body.theme-tet.dark-mode .right-panel,
+body.theme-halloween.dark-mode .right-panel,
+body.theme-midautumn.dark-mode .right-panel,
+body.theme-hoadang.dark-mode .right-panel,
+body.theme-easter.dark-mode .right-panel,
+body.dark-mode .right-panel {
+    background-color: var(--bg-gray) !important;
+}
+
+/* --- CÁC CHỦ ĐỀ TRANG ĐĂNG NHẬP --- */
+    
+    /* Chủ đề Giáng Sinh (Christmas) */
+/* ========================================================== */
+/* CHỦ ĐỀ GIÁNG SINH (CHRISTMAS THEME)                       */
+/* ========================================================== */
+
+/* 1. Phần nền bên trái (.left-panel): Dùng ảnh nền Giáng Sinh */
+body.theme-christmas .left-panel {
+    background-image: url('christmas-bg.png') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* 2. Tùy chỉnh chữ viết bên trái hiển thị nổi bật trên nền xanh/đỏ */
+body.theme-christmas .left-panel .main-heading,
+body.theme-christmas .left-panel .description,
+body.theme-christmas .left-panel .tagline,
+body.theme-christmas .left-panel .logo-text span {
+    color: #fff !important;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+/* 3. Phần panel bên phải (.right-panel): Tông nền trắng sáng nhẹ nhàng */
+body.theme-christmas .right-panel {
+    background-color: #fdfefe !important;
+}
+
+/* 4. Nút đăng nhập chính: Đổi sang màu đỏ Noel đặc trưng */
+body.theme-christmas .login-btn {
+    background-color: #17c75b !important;
+    box-shadow: 0 4px 12px rgba(179, 33, 52, 0.3) !important;
+}
+body.theme-christmas .login-btn:hover {
+    background-color: #8a1928 !important;
+}
+
+    /* Chủ đề Tết Nguyên Đán (Tet) */
+    /* --- CHỦ ĐỀ TẾT NGUYÊN ĐÁN (TET THEME) --- */
+
+    body.theme-tet .left-panel {
+        /* Đặt ảnh nền Tết vừa tải lên làm background, phủ kín khung bên trái */
+        background-image: url('tet-bg.png') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }
+
+    /* Tùy chỉnh thêm để chữ viết bên trái hiển thị nổi bật và rõ ràng trên nền ảnh rực rỡ */
+    body.theme-tet .left-panel .main-heading,
+    body.theme-tet .left-panel .description,
+    body.theme-tet .left-panel .tagline,
+    body.theme-tet .left-panel .logo-text span {
+        color: #fff !important;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6); /* Tạo độ bóng giúp chữ không bị chìm vào nền đỏ */
+    }
+
+    /* Phần panel bên phải (.right-panel): Chuyển sang tông nền trắng hồng ấm áp nhẹ nhàng */
+    body.theme-tet .right-panel {
+        background-color: #fffcf9 !important;
+    }
+
+    /* Nút đăng nhập chính: Đổi sang màu đỏ đô đặc trưng ngày Tết */
+    body.theme-tet .login-btn {
+        background-color: #e40b0b !important;
+        box-shadow: 0 4px 12px rgba(201, 24, 74, 0.3) !important;
+    }
+    body.theme-tet .login-btn:hover {
+        background-color: #a5123a !important;
+    }
+    
+
+    /* Chủ đề Halloween */
+/* --- CHỦ ĐỀ HALLOWEEN (HALLOWEEN THEME) --- */
+
+    body.theme-halloween .left-panel {
+        /* Đặt ảnh nền Halloween làm background, phủ kín khung bên trái */
+        background-image: url('halloween-bg.png') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }
+
+    /* Tùy chỉnh thêm để chữ viết bên trái hiển thị nổi bật và rõ ràng trên nền tối huyền ảo */
+    body.theme-halloween .left-panel .main-heading,
+    body.theme-halloween .left-panel .description,
+    body.theme-halloween .left-panel .tagline,
+    body.theme-halloween .left-panel .logo-text span {
+        color: #f8fafc !important;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9); /* Tạo độ bóng đậm giúp chữ nổi bật trên nền tối */
+    }
+
+    /* Phần panel bên phải (.right-panel): Chuyển sang tông nền sáng nhẹ nhàng */
+    body.theme-halloween .right-panel {
+        background-color: #fcfbfb !important;
+    }
+
+    /* Nút đăng nhập chính: Đổi sang màu cam bí ngô đặc trưng Halloween */
+    body.theme-halloween .login-btn {
+        background-color: #ff6b00 !important;
+        box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3) !important;
+    }
+    body.theme-halloween .login-btn:hover {
+        background-color: #e05e00 !important;
+    }
+    /* ========================================================== */
+    /* CHỦ ĐỀ TRICK OR TREAT (TRICK OR TREAT THEME)               */
+    /* ========================================================== */
+
+    /* 1. Phần nền bên trái (.left-panel): Dùng ảnh nền Trick or Treat */
+    body.theme-trickortreat .left-panel {
+        background-image: url('trickortreat-bg.jpg') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }
+
+    /* 2. Tùy chỉnh chữ viết bên trái nổi bật trên nền trời đêm trăng tròn */
+    body.theme-trickortreat .left-panel .main-heading,
+    body.theme-trickortreat .left-panel .description,
+    body.theme-trickortreat .left-panel .tagline,
+    body.theme-trickortreat .left-panel .logo-text span {
+        color: #fffbeb !important;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.92);
+    }
+
+    /* 3. Phần panel bên phải (.right-panel): Tông nền kem cam nhạt ấm áp */
+    body.theme-trickortreat .right-panel {
+        background-color: #fffaf5 !important;
+    }
+
+    /* Đồng bộ Dark Mode cho khung bên phải */
+    body.theme-trickortreat.dark-mode .right-panel {
+        background-color: var(--bg-gray) !important;
+    }
+
+    /* 4. Nút đăng nhập chính: Đổi sang màu cam bí ngô đặc trưng Trick or Treat */
+    body.theme-trickortreat .login-btn {
+        background-color: #f97316 !important;
+        box-shadow: 0 4px 12px rgba(249, 115, 22, 0.35) !important;
+    }
+    body.theme-trickortreat .login-btn:hover {
+        background-color: #ea580c !important;
+    }
+/* ========================================================== */
+    /* CHỦ ĐỀ TẾT TRUNG THU (MID-AUTUMN THEME)                    */
+    /* ========================================================== */
+
+    body.theme-midautumn .left-panel {
+        /* Đặt ảnh nền Trung Thu làm background, phủ kín khung bên trái */
+        background-image: url('midautumn-bg.png') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }
+
+    /* Tùy chỉnh chữ viết bên trái hiển thị nổi bật trên nền xanh đêm trăng rằm */
+    body.theme-midautumn .left-panel .main-heading,
+    body.theme-midautumn .left-panel .description,
+    body.theme-midautumn .left-panel .tagline,
+    body.theme-midautumn .left-panel .logo-text span {
+        color: #f8fafc !important;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9); /* Tạo độ bóng giúp chữ nổi bật trên nền trời đêm */
+    }
+
+    /* Phần panel bên phải (.right-panel): Chuyển sang tông nền sáng nhẹ nhàng, ấm áp */
+    body.theme-midautumn .right-panel {
+        background-color: #fbfefc !important;
+    }
+
+    /* Nút đăng nhập chính: Đổi sang màu xanh dương/tím đậm hoặc màu cam đèn lồng đặc trưng Trung Thu */
+    body.theme-midautumn .login-btn {
+        background-color: #0284c7 !important;
+        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3) !important;
+    }
+    body.theme-midautumn .login-btn:hover {
+        background-color: #0369a1 !important;
+    }
+
+    /* ========================================================== */
+    /* CHỦ ĐỀ LỄ HỘI HOA ĐĂNG (LANTERN FESTIVAL THEME)           */
+    /* ========================================================== */
+
+    body.theme-hoadang .left-panel {
+        /* Đặt ảnh nền Hoa Đăng làm background, phủ kín khung bên trái */
+        background-image: url('hoadang-bg.jpg') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }
+
+    /* Tùy chỉnh chữ viết bên trái hiển thị nổi bật trên nền trời đêm và ánh đèn lung linh */
+    body.theme-hoadang .left-panel .main-heading,
+    body.theme-hoadang .left-panel .description,
+    body.theme-hoadang .left-panel .tagline,
+    body.theme-hoadang .left-panel .logo-text span {
+        color: #f8fafc !important;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9); /* Tạo độ bóng giúp chữ nổi bật trên nền tối */
+    }
+
+    /* Phần panel bên phải (.right-panel): Chuyển sang tông nền sáng nhẹ nhàng, thanh tịnh */
+    body.theme-hoadang .right-panel {
+        background-color: #f6fafd !important;
+    }
+
+    /* Nút đăng nhập chính: Đổi sang màu vàng ấm áp hoặc xanh đậm đặc trưng ánh nến hoa đăng */
+    body.theme-hoadang .login-btn {
+        background-color: #d97706 !important;
+        box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3) !important;
+    }
+    body.theme-hoadang .login-btn:hover {
+        background-color: #b45309 !important;
+    }
+
+    /* ========================================================== */
+    /* CHỦ ĐỀ LỄ PHỤC SINH (EASTER THEME)                        */
+    /* ========================================================== */
+
+    body.theme-easter .left-panel {
+        /* Đặt ảnh nền Lễ Phục Sinh làm background, phủ kín khung bên trái */
+        background-image: url('easter-bg.png') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }
+
+    /* Tùy chỉnh chữ viết bên trái hiển thị nổi bật trên nền trời xanh tươi sáng */
+    body.theme-easter .left-panel .main-heading,
+    body.theme-easter .left-panel .description,
+    body.theme-easter .left-panel .tagline,
+    body.theme-easter .left-panel .logo-text span {
+        color: #1e293b !important; /* Dùng chữ tối màu cho dễ đọc trên nền trời xanh sáng */
+        text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8); /* Tạo bóng sáng để chữ nổi bật */
+    }
+
+    /* Phần panel bên phải (.right-panel): Chuyển sang tông nền trắng sáng nhẹ nhàng, trong trẻo */
+    body.theme-easter .right-panel {
+        background-color: #fcfdfd !important;
+    }
+
+    /* Nút đăng nhập chính: Đổi sang màu xanh ngọc / tím pastel đặc trưng mùa Phục Sinh */
+    body.theme-easter .login-btn {
+        background-color: #0ea5e9 !important;
+        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3) !important;
+    }
+    body.theme-easter .login-btn:hover {
+        background-color: #0284c7 !important;
+    }
+
+    /* ========================================================== */
+/* CHỦ ĐỀ QUỐC KHÁNH 2/9 (NATIONAL DAY THEME)                 */
+/* ========================================================== */
+
+body.theme-nationalday .left-panel {
+    /* Đặt ảnh nền Quốc Khánh làm background, phủ kín khung bên trái */
+    background-image: url('nationalday-bg.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Tùy chỉnh chữ viết bên trái hiển thị nổi bật trên nền đỏ rực rỡ */
+body.theme-nationalday .left-panel .main-heading,
+body.theme-nationalday .left-panel .description,
+body.theme-nationalday .left-panel .tagline,
+body.theme-nationalday .left-panel .logo-text span {
+    color: #fff !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8); /* Tạo độ bóng giúp chữ nổi bật */
+}
+
+/* Phần panel bên phải (.right-panel): Tông nền trắng sáng nhẹ nhàng */
+body.theme-nationalday .right-panel {
+    background-color: #fdfefe !important;
+}
+
+/* Nút đăng nhập chính: Đổi sang màu đỏ cờ / vàng sao đặc trưng ngày Quốc Khánh */
+body.theme-nationalday .login-btn {
+    background-color: #da251d !important;
+    box-shadow: 0 4px 12px rgba(218, 37, 29, 0.3) !important;
+}
+body.theme-nationalday .login-btn:hover {
+    background-color: #b51c14 !important;
+}
+
+/* Đồng bộ Dark Mode cho panel bên phải của chủ đề 2/9 */
+body.theme-nationalday.dark-mode .right-panel {
+    background-color: var(--bg-gray) !important;
+}
+
+/* ========================================================== */
+/* CHỦ ĐỀ GIẢI PHÓNG MIỀN NAM 30/4 (REUNIFICATION THEME)      */
+/* ========================================================== */
+
+body.theme-reunification .left-panel {
+    /* Đặt ảnh nền 30/4 làm background, phủ kín khung bên trái */
+    background-image: url('reunification-bg.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Tùy chỉnh chữ viết bên trái hiển thị nổi bật trên nền đỏ cờ hoa */
+body.theme-reunification .left-panel .main-heading,
+body.theme-reunification .left-panel .description,
+body.theme-reunification .left-panel .tagline,
+body.theme-reunification .left-panel .logo-text span {
+    color: #fff !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+/* Phần panel bên phải (.right-panel): Tông nền trắng sáng nhẹ nhàng */
+body.theme-reunification .right-panel {
+    background-color: #fdfefe !important;
+}
+
+/* Nút đăng nhập chính: Đổi sang màu đỏ cờ / vàng sao đặc trưng ngày 30/4 */
+body.theme-reunification .login-btn {
+    background-color: #e31b23 !important;
+    box-shadow: 0 4px 12px rgba(227, 27, 35, 0.3) !important;
+}
+body.theme-reunification .login-btn:hover {
+    background-color: #bd121a !important;
+}
+
+/* Đồng bộ Dark Mode cho panel bên phải của chủ đề 30/4 */
+body.theme-reunification.dark-mode .right-panel {
+    background-color: var(--bg-gray) !important;
+}
+
+/* ========================================================== */
+/* CHỦ ĐỀ LỄ TÌNH NHÂN (VALENTINE THEME)                      */
+/* ========================================================== */
+
+/* 1. Phần nền bên trái (.left-panel): Dùng ảnh nền Valentine */
+body.theme-valentine .left-panel {
+    background-image: url('valentine-bg.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* 2. Tùy chỉnh chữ viết bên trái nổi bật trên nền hồng phấn sáng */
+body.theme-valentine .left-panel .main-heading,
+body.theme-valentine .left-panel .description,
+body.theme-valentine .left-panel .tagline,
+body.theme-valentine .left-panel .logo-text span {
+    color: #881337 !important;
+    text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95);
+}
+
+/* 3. Phần panel bên phải (.right-panel): Tông nền hồng kem nhẹ nhàng */
+body.theme-valentine .right-panel {
+    background-color: #fff5f7 !important;
+}
+
+/* Đồng bộ Dark Mode cho khung bên phải */
+body.theme-valentine.dark-mode .right-panel {
+    background-color: var(--bg-gray) !important;
+}
+
+/* 4. Nút đăng nhập chính: Màu hồng đỏ Valentine */
+body.theme-valentine .login-btn {
+    background-color: #e11d48 !important;
+    box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3) !important;
+}
+body.theme-valentine .login-btn:hover {
+    background-color: #be123c !important;
+}
+
+/* ========================================================== */
+/* CHỦ ĐỀ GIỜ TRÁI ĐẤT (EARTH HOUR THEME)                     */
+/* ========================================================== */
+
+/* 1. Phần nền bên trái (.left-panel): Dùng ảnh nền Giờ Trái Đất */
+body.theme-earthhour .left-panel {
+    background-image: url('earthhour-bg.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* 2. Tùy chỉnh chữ viết bên trái hiển thị nổi bật trên nền trời đêm cực quang */
+body.theme-earthhour .left-panel .main-heading,
+body.theme-earthhour .left-panel .description,
+body.theme-earthhour .left-panel .tagline,
+body.theme-earthhour .left-panel .logo-text span {
+    color: #f8fafc !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+/* 3. Phần panel bên phải (.right-panel): Tông nền xanh ngọc nhạt dịu mắt */
+body.theme-earthhour .right-panel {
+    background-color: #f4fbf8 !important;
+}
+
+/* Đồng bộ Dark Mode cho khung bên phải */
+body.theme-earthhour.dark-mode .right-panel {
+    background-color: var(--bg-gray) !important;
+}
+
+/* 4. Nút đăng nhập chính: Đổi sang màu xanh lá bảo vệ môi trường */
+body.theme-earthhour .login-btn {
+    background-color: #10b981 !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+}
+body.theme-earthhour .login-btn:hover {
+    background-color: #059669 !important;
+}
+
+/* ========================================================== */
+/* CHỦ ĐỀ LỄ HỘI SẮC MÀU (COLOR FESTIVAL THEME)               */
+/* ========================================================== */
+
+/* 1. Phần nền bên trái (.left-panel): Dùng ảnh nền Lễ Hội Sắc Màu */
+body.theme-colorfest .left-panel {
+    background-image: url('colorfest-bg.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* 2. Tùy chỉnh chữ viết bên trái nổi bật trên nền trời xanh & bột màu rực rỡ */
+body.theme-colorfest .left-panel .main-heading,
+body.theme-colorfest .left-panel .description,
+body.theme-colorfest .left-panel .tagline,
+body.theme-colorfest .left-panel .logo-text span {
+    color: #ffffff !important;
+    text-shadow: 0 2px 10px rgba(15, 23, 42, 0.85), 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+/* 3. Phần panel bên phải (.right-panel): Tông nền trắng ánh tím hồng nhẹ */
+body.theme-colorfest .right-panel {
+    background-color: #fdf8ff !important;
+}
+
+/* Đồng bộ Dark Mode cho khung bên phải */
+body.theme-colorfest.dark-mode .right-panel {
+    background-color: var(--bg-gray) !important;
+}
+
+/* 4. Nút đăng nhập chính: Dải màu Gradient Lễ Hội Sắc Màu rực rỡ */
+body.theme-colorfest .login-btn {
+    background: linear-gradient(135deg, #f43f5e 0%, #ec4899 35%, #a855f7 70%, #3b82f6 100%) !important;
+    background-size: 200% auto !important;
+    box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4) !important;
+    transition: all 0.3s ease !important;
+}
+
+body.theme-colorfest .login-btn:hover {
+    background-position: right center !important;
+    box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5) !important;
+    transform: translateY(-1px);
+}
+
+/* Định dạng video nền phủ kín khung trái */
+#theme-bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Đẩy toàn bộ chữ và nội dung bên trái nổi lên trên video */
+.left-panel > *:not(#theme-bg-video) {
+    position: relative;
+    z-index: 2;
+}
+
+/* Tùy chỉnh riêng cho chủ đề dùng Video (ví dụ: theme-video_theme) */
+body.theme-video_theme .left-panel {
+    background-image: none !important; /* Tắt ảnh nền tĩnh để lộ video */
+    background-color: #0f172a !important; /* Màu nền dự phòng khi video đang tải */
+}
+
+body.theme-video_theme .left-panel .main-heading,
+body.theme-video_theme .left-panel .description,
+body.theme-video_theme .left-panel .tagline,
+body.theme-video_theme .left-panel .logo-text span {
+    color: #ffffff !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+}
+
+body.theme-video_theme .login-btn {
+    background-color: #3b82f6 !important;
+}
