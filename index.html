@@ -1857,7 +1857,114 @@
                 height: 6px !important;
             }
         }
+        /* KHÓA CỨNG TỶ LỆ MÀN HÌNH ĐĂNG NHẬP (CẢ KHI PHÓNG TO LẪN THU NHỎ 25%) */
+            #login-page {
+                /* XÓA dòng display: flex !important; ở đây đi */
+                flex-direction: row !important;
+                min-width: 1200px !important;
+                min-height: 700px !important;
+                width: 100% !important;
+                height: 100% !important;
+                overflow: auto !important;
+            }
 
+            #login-page .left-panel {
+                flex: 1.2 !important;
+                min-width: 680px !important;
+                padding: 50px 70px !important;
+                justify-content: center !important; /* Căn giữa dọc để cân đối với form bên phải */
+            }
+
+            #login-page .right-panel {
+                flex: 0.8 !important;
+                min-width: 480px !important;
+                padding: 40px !important;
+            }
+
+            /* Khóa kích thước chuẩn cho khung ảnh tốt nghiệp, không cho phình to khi thu nhỏ */
+            #login-page .image-container {
+                flex: none !important;
+                width: 100% !important;
+                max-width: 680px !important;
+                height: 340px !important;
+                min-height: 340px !important;
+                margin-bottom: 30px !important;
+            }
+
+            #login-page .image-divider {
+                max-width: 680px !important;
+                margin: 0 !important;
+            }
+            @media (min-width: 901px) {
+            #login-page {
+                display: flex !important;
+                flex-direction: row !important;
+                min-width: 1200px !important;
+                min-height: 700px !important;
+                width: 100% !important;
+                height: 100% !important;
+                overflow: auto !important;
+            }
+
+            #login-page .left-panel {
+                flex: 1.2 !important;
+                min-width: 680px !important;
+                padding: 45px 70px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+            }
+
+            /* Khóa chiều rộng tối đa 760px và căn giữa: vừa khít lúc 100%, không bị kéo giãn lúc 25% */
+            #login-page .left-header,
+            #login-page .tagline,
+            #login-page .main-heading,
+            #login-page .description,
+            #login-page .image-divider {
+                width: 100% !important;
+                max-width: 760px !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+
+            /* Khung ảnh dáng ngang chuẩn, khóa cả chiều rộng tối đa lẫn chiều cao */
+            #login-page .image-container {
+                flex: none !important;
+                width: 100% !important;
+                max-width: 760px !important;
+                height: 225px !important;
+                min-height: 225px !important;
+                max-height: 225px !important;
+                margin: 0 auto 35px auto !important;
+                background-size: cover !important;
+                background-position: center 45% !important;
+                border-radius: 20px !important;
+            }
+
+            #login-page .right-panel {
+                flex: 0.8 !important;
+                min-width: 480px !important;
+                padding: 40px !important;
+            }
+
+            #login-page .right-panel {
+                flex: 0.8 !important;
+                min-width: 480px !important;
+                height: 100% !important;
+                padding: 40px !important;
+                align-items: flex-start !important; /* Không đẩy tràn lên mép trên */
+                overflow-y: auto !important;        /* Tự cuộn riêng cột phải nếu form dài */
+            }
+
+            #login-page .login-box {
+                margin: auto 0 !important; /* Tự căn giữa khi ngắn, tự giữ mép trên khi dài */
+            }
+        }
+        #login-page[style*="display: none"],
+        #login-page[style*="display:none"] {
+            display: none !important;
+        }
     </style>
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -3292,9 +3399,12 @@
                 </div>
 
                 <div style="display: flex; gap: 15px; margin-bottom: 15px;">
-                    <div class="input-group" id="act-date-group" style="flex: 1; margin-bottom: 0;">
-                        <label style="color:#1e293b;">Ngày tham gia</label>
-                        <input type="date" id="act-date">
+                    <div class="input-group" id="act-date-group" style="flex: 1.5; margin-bottom: 0;">
+                        <label style="color:#1e293b;">Ngày & Giờ tham gia</label>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="date" id="act-date" style="flex: 1.3;">
+                            <input type="time" id="act-time" style="flex: 1;" title="Nhập giờ để app tự nhắc trước 1 tiếng">
+                        </div>
                     </div>
                     <div class="input-group" style="flex: 1; margin-bottom: 0;">
                         <label style="color:#1e293b;">Số điểm</label>
@@ -4142,6 +4252,7 @@
 
         function deleteActivity(idx) {
             if (confirm('Bạn có chắc chắn muốn xóa hoạt động này?')) {
+                cancelActivityNotification(activities[idx].id);
                 activities.splice(idx, 1);
                 updateDashboard();
             }
@@ -4173,6 +4284,7 @@
             actNameInput.value = act.name;
             actOrgInput.value = act.org || '';
             actDateInput.value = act.date || '';
+            document.getElementById('act-time').value = act.time || '';
             actPointsInput.value = act.points; 
 
             currentOverviewProofImg = act.proofImg || "";
@@ -4850,6 +4962,7 @@
                 name: nameVal,
                 criteriaName: resolvedCriteriaName,
                 org: actOrg, date: actDate, points: enteredPoints,
+                time: document.getElementById('act-time').value || '', // <-- THÊM DÒNG NÀY
                 criteria: criteriaVal, l1: selectL1.value, l2: selectL2.value, l3: selectL3.value,
                 proof: existingProofLink,
                 proofImg: finalProofImg
@@ -4862,6 +4975,7 @@
             }
             
             updateDashboard(); closeModal();
+            scheduleActivityNotification(newActivity);
         });
 
         function updateDashboard() {
@@ -5357,9 +5471,12 @@
             
             acts.forEach(act => {
                 let color = criteriaData[act.criteria] ? criteriaData[act.criteria].color : '#3b82f6';
+                let timeBadge = act.time ? `<span style="margin-left: 8px; color: #ef4444; font-weight: 700;">⏰ ${act.time}</span>` : '';
                 listHtml += `
                     <div class="day-detail-item">
-                        <div class="day-detail-time" style="color: ${color}; font-weight: bold;">Nhóm ${act.criteria} (+${act.effectivePoints !== undefined ? act.effectivePoints : act.points}đ)</div>
+                        <div class="day-detail-time" style="color: ${color}; font-weight: bold;">
+                            Nhóm ${act.criteria} (+${act.effectivePoints !== undefined ? act.effectivePoints : act.points}đ)${timeBadge}
+                        </div>
                         <div class="day-detail-name">${act.name}</div>
                         <div style="font-size: 13px; color: #64748b;">${act.org || 'Không có đơn vị tổ chức'}</div>
                     </div>
@@ -6267,14 +6384,8 @@ let syncCloudTimer = null;
             const fileName = dlBtn.getAttribute('download') || 'tai-lieu.pdf';
             if (!fullUrl || fullUrl === '#') return false;
 
-            // Nếu đang chạy trong App APK (Capacitor) -> mở thẳng link bằng trình duyệt máy để tải
-            if (window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()) {
-                window.open(fullUrl, '_blank');
-                return false;
-            }
-
-            // Ưu tiên tải bằng đường dẫn tương đối nếu đang chạy trên web (tránh lỗi CORS)
-            const fetchUrl = (window.location.protocol.startsWith('http') && rawFile && !rawFile.startsWith('http'))
+            const isNative = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
+            const fetchUrl = (!isNative && window.location.protocol.startsWith('http') && rawFile && !rawFile.startsWith('http'))
                 ? encodeURI(rawFile)
                 : fullUrl;
 
@@ -6285,15 +6396,9 @@ let syncCloudTimer = null;
                 const res = await fetch(fetchUrl);
                 if (!res.ok) throw new Error('Lỗi tải file');
                 const blob = await res.blob();
-                const blobUrl = URL.createObjectURL(blob);
 
-                const tempLink = document.createElement('a');
-                tempLink.href = blobUrl;
-                tempLink.download = fileName;
-                document.body.appendChild(tempLink);
-                tempLink.click();
-                document.body.removeChild(tempLink);
-                setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+                // Dùng chung hàm saveOrShareFile cho cả Web (tải thẳng) và App APK (lưu/mở file trực tiếp)
+                await saveOrShareFile(blob, fileName);
             } catch (err) {
                 window.open(fullUrl, '_blank');
             } finally {
@@ -6301,6 +6406,18 @@ let syncCloudTimer = null;
             }
             return false;
         }
+        window.openSv5tUnitLink = function(el, e) {
+            if (e) e.preventDefault();
+            const url = el.getAttribute('href');
+            if (!url || url === '#') return false;
+
+            if (url.toLowerCase().includes('.pdf')) {
+                return openPdfModal(url, el.innerText.trim(), e);
+            }
+
+            window.open(url, '_blank');
+            return false;
+        };
         // --- LOGIC THEO DÕI TIẾN ĐỘ SINH VIÊN 5 TỐT ---
         let sv5tState = {
             year: 'year1',
@@ -7283,7 +7400,7 @@ let syncCloudTimer = null;
             { file: "baotri2.mp3", label: "🎵 Ngày Tết Quê Em", startAt: 0 },
             { file: "baotri3.mp3", label: "🎵 Vạn Sự Như Ý", startAt: 0 },
             { file: "baotri4.mp3", label: "🎵 Jingle Bells", startAt: 0 },
-            { file: "baotri5.mp3", label: "🎵 Cảm Ơn Người Đã Thức Cùng Tôi", startAt: 0 },
+            { file: "baotri5.mp3", label: "🎵 Cảm Ơn Người Đã Thức Cùng Tôi", startAt: 5 },
             { file: "",           label: "🔇 Tắt Nhạc Bảo Trì", startAt: 0 }
         ];
 
@@ -8228,6 +8345,59 @@ ${modeConfirmDetail}`
             a.click();
             document.body.removeChild(a);
             setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+        // Tạo ID số nguyên hợp lệ cho thông báo Android từ act.id
+        function getNotifId(actId) {
+            return Math.abs(Math.floor(Number(actId) % 2147483647)) || Math.floor(Math.random() * 1000000);
+        }
+
+        // Đặt lịch thông báo trước 1 giờ khi lưu hoạt động
+        async function scheduleActivityNotification(act) {
+            if (!act || !act.date || !act.time) return;
+
+            const eventDate = new Date(`${act.date}T${act.time}:00`);
+            const notifyDate = new Date(eventDate.getTime() - 60 * 60 * 1000); // Lùi lại 1 giờ
+
+            // Nếu thời gian nhắc đã trôi qua thì không đặt lịch nữa
+            if (isNaN(notifyDate.getTime()) || notifyDate <= new Date()) return;
+
+            const actName = getUserActivityName(act);
+            const message = `Hoạt động ${actName} sẽ diễn ra vào lúc ${act.time} vui lòng có mặt trước để ổn định!`;
+
+            // Chạy trên App Android (Capacitor)
+            if (window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()) {
+                try {
+                    const { LocalNotifications } = window.Capacitor.Plugins;
+                    const perm = await LocalNotifications.requestPermissions();
+                    if (perm.display !== 'granted') return;
+
+                    const notifId = getNotifId(act.id);
+                    // Hủy lịch cũ nếu đang sửa lại hoạt động
+                    await LocalNotifications.cancel({ notifications: [{ id: notifId }] });
+
+                    await LocalNotifications.schedule({
+                        notifications: [{
+                            id: notifId,
+                            title: '⏰ Nhắc nhở hoạt động sắp diễn ra',
+                            body: message,
+                            schedule: { at: notifyDate, allowWhileIdle: true },
+                            smallIcon: 'ic_stat_icon_config_sample'
+                        }]
+                    });
+                } catch (err) {
+                    console.warn('Lỗi đặt lịch thông báo:', err);
+                }
+            }
+        }
+
+        // Hủy thông báo khi xóa hoạt động
+        async function cancelActivityNotification(actId) {
+            if (window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()) {
+                try {
+                    const { LocalNotifications } = window.Capacitor.Plugins;
+                    await LocalNotifications.cancel({ notifications: [{ id: getNotifId(actId) }] });
+                } catch (err) {}
+            }
         }
     </script>
 </body>
