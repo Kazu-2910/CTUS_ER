@@ -2005,6 +2005,255 @@
         html.restoring-session #login-page {
             display: none !important;
         }
+        /* === MÀN HÌNH INTRO (SPLASH SCREEN - NHỊP CHẬM MƯỢT) === */
+        #srl-intro-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: radial-gradient(circle at center, #0f172a 0%, #050811 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        #srl-intro-screen.intro-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Chặn hiển thị intro nếu đang reload trong phiên đăng nhập */
+        html.restoring-session #srl-intro-screen {
+            display: none !important;
+        }
+
+        .intro-logo-wrap {
+            width: 300px;
+            max-width: 82vw;
+            animation: introZoomOut 1.15s cubic-bezier(0.65, 0, 0.25, 1) 4.35s forwards;
+        }
+
+        .intro-svg {
+            width: 100%;
+            height: auto;
+            overflow: visible;
+            filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.35));
+        }
+
+        /* Nét vẽ chữ SRL chậm hơn */
+        .srl-stroke {
+            fill: none;
+            stroke: url(#srlNeonGrad);
+            stroke-width: 4.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 650;
+            stroke-dashoffset: 650;
+            animation:
+                drawSrlStroke 2.2s cubic-bezier(0.35, 0, 0.2, 1) 0.3s forwards,
+                fadeOutStroke 0.65s ease 2.45s forwards;
+        }
+
+        /* Lớp màu fill hiện ra sau khi vẽ xong nét */
+        .srl-fill {
+            fill: url(#srlFillGrad);
+            opacity: 0;
+            transform-origin: center;
+            animation: fillSrlGlow 1.05s cubic-bezier(0.22, 1, 0.36, 1) 2.1s forwards;
+        }
+
+        /* Dòng chữ SỔ RÈN LUYỆN phía dưới */
+        .intro-title {
+            margin-top: 10px;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #38bdf8, #ffffff, #818cf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(14px);
+            filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.5));
+            animation:
+                slideUpTitle 0.9s cubic-bezier(0.22, 1, 0.36, 1) 2.65s forwards,
+                fadeOutTitle 0.6s ease 4.25s forwards;
+        }
+
+        .intro-sub {
+            margin-top: 6px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #94a3b8;
+            opacity: 0;
+            animation:
+                slideUpTitle 0.8s ease 2.9s forwards,
+                fadeOutTitle 0.6s ease 4.25s forwards;
+        }
+
+        @keyframes drawSrlStroke {
+            to { stroke-dashoffset: 0; }
+        }
+
+        @keyframes fadeOutStroke {
+            to { opacity: 0; }
+        }
+
+        @keyframes fillSrlGlow {
+            0% {
+                opacity: 0;
+                filter: drop-shadow(0 0 0px rgba(56, 189, 248, 0));
+            }
+            60% {
+                opacity: 1;
+                filter: drop-shadow(0 0 26px rgba(56, 189, 248, 0.95));
+            }
+            100% {
+                opacity: 1;
+                filter: drop-shadow(0 0 12px rgba(99, 102, 241, 0.55));
+            }
+        }
+
+        @keyframes slideUpTitle {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOutTitle {
+            to {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+        }
+
+        /* Hiệu ứng phóng to xuyên qua logo chậm hơn */
+        @keyframes introZoomOut {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(18);
+                opacity: 0;
+            }
+        }
+
+/* === HOẠT HỌA BẢO TRÌ - NHỎ GỌN & NỀN TRONG SUỐT === */
+.maint-build-wrap {
+    --b-bg: transparent;
+    --b-ink: #1f2250;
+    --b-orange: #4f6fe8;
+    --b-teal: #8c9bf7;
+    --b-yellow: #f7d117;
+    --b-soft: rgba(216, 217, 246, 0.45);
+
+    width: 300px;
+    max-width: 100vw;
+    margin: 0 auto 10px;
+    border-radius: 0;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    cursor: pointer;
+    user-select: none;
+    overflow: visible;
+    box-shadow: none !important;
+}
+
+.maint-build-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+body.dark-mode .maint-build-wrap {
+    --b-ink: #e2e8f0;
+    --b-soft: rgba(148, 163, 184, 0.18);
+}
+
+/* Khối trang web được ghép dần */
+.maint-build-wrap .piece {
+    animation: bldPiece 6s ease-in-out infinite both;
+    transform-box: fill-box;
+}
+.maint-build-wrap .p1 { animation-delay: .3s; }
+.maint-build-wrap .p2 { animation-delay: 1.0s; }
+.maint-build-wrap .p3 { animation-delay: 1.7s; }
+.maint-build-wrap .p4 { animation-delay: 2.1s; }
+.maint-build-wrap .p5 { animation-delay: 2.5s; }
+@keyframes bldPiece {
+    0%   { opacity: 0; transform: translateY(-40px) scale(.9); }
+    12%  { opacity: 1; transform: translateY(0) scale(1); }
+    18%  { transform: translateY(0) scale(1.04); }
+    22%  { transform: translateY(0) scale(1); }
+    88%  { opacity: 1; }
+    96%, 100% { opacity: 0; transform: translateY(0) scale(1); }
+}
+
+/* Cần cẩu */
+.maint-build-wrap .trolley { animation: bldTrolley 6s ease-in-out infinite; }
+@keyframes bldTrolley {
+    0%, 100% { transform: translateX(0); }
+    50%      { transform: translateX(215px); }
+}
+.maint-build-wrap .swing {
+    transform-origin: 0 0;
+    animation: bldSwing 3s ease-in-out infinite;
+}
+@keyframes bldSwing {
+    0%, 100% { transform: rotate(-4deg); }
+    50%      { transform: rotate(4deg); }
+}
+
+/* Bánh răng */
+.maint-build-wrap .gear { transform-box: fill-box; transform-origin: center; }
+.maint-build-wrap .g1 { animation: bldSpin 5s linear infinite; }
+.maint-build-wrap .g2 { animation: bldSpin 3.4s linear infinite reverse; }
+@keyframes bldSpin { to { transform: rotate(360deg); } }
+
+/* Thanh tiến độ */
+.maint-build-wrap .bar {
+    transform-box: fill-box; transform-origin: left center;
+    animation: bldProgress 6s ease-in-out infinite;
+}
+@keyframes bldProgress {
+    0% { transform: scaleX(0); }
+    90%, 100% { transform: scaleX(1); }
+}
+
+/* Băng cảnh báo chạy */
+.maint-build-wrap .tape { animation: bldTape 1.2s linear infinite; }
+@keyframes bldTape { to { transform: translateX(40px); } }
+
+/* Chữ nhấp nháy nhẹ */
+.maint-build-wrap .dots tspan { animation: bldBlink 1.4s infinite both; }
+.maint-build-wrap .dots tspan:nth-child(2) { animation-delay: .2s; }
+.maint-build-wrap .dots tspan:nth-child(3) { animation-delay: .4s; }
+@keyframes bldBlink { 0%, 80%, 100% { opacity: .2; } 40% { opacity: 1; } }
+
+/* Công nhân */
+.maint-build-wrap .worker-head { transform-box: fill-box; transform-origin: bottom center; animation: bldNod 3s ease-in-out infinite; }
+@keyframes bldNod { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-4deg); } }
+.maint-build-wrap .typing { animation: bldType .35s ease-in-out infinite alternate; }
+@keyframes bldType { from { transform: translateY(0); } to { transform: translateY(2px); } }
+.maint-build-wrap .swingleg { transform-box: fill-box; transform-origin: top right; animation: bldKick 2.6s ease-in-out infinite; }
+@keyframes bldKick { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(8deg); } }
+
+/* Cọc tiêu lắc */
+.maint-build-wrap .cone { transform-box: fill-box; transform-origin: bottom center; animation: bldWobble 2.5s ease-in-out infinite; }
+@keyframes bldWobble { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+    .maint-build-wrap * { animation: none !important; }
+}
 
         /* KHÓA CỨNG TỶ LỆ MÀN HÌNH ĐĂNG NHẬP (CẢ KHI PHÓNG TO LẪN THU NHỎ 25%) */
             #login-page {
@@ -2165,6 +2414,42 @@
 </script>
 </head>
 <body>
+
+    <!-- MÀN HÌNH INTRO KHỞI ĐỘNG -->
+    <div id="srl-intro-screen">
+        <div class="intro-logo-wrap">
+            <svg class="intro-svg" viewBox="0 0 360 130" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="srlNeonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#22d3ee" />
+                        <stop offset="50%" stop-color="#3b82f6" />
+                        <stop offset="100%" stop-color="#ec4899" />
+                    </linearGradient>
+                    <linearGradient id="srlFillGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#38bdf8" />
+                        <stop offset="55%" stop-color="#ffffff" />
+                        <stop offset="100%" stop-color="#818cf8" />
+                    </linearGradient>
+                </defs>
+
+                <!-- Lớp 1: Nét vẽ Neon chạy viền chữ SRL -->
+                <text x="50%" y="98" text-anchor="middle"
+                    font-family="'Inter', 'Segoe UI', sans-serif"
+                    font-weight="900" font-style="italic" font-size="108" letter-spacing="6"
+                    class="srl-stroke">SRL</text>
+
+                <!-- Lớp 2: Lớp tô sáng hiện ra sau khi vẽ nét -->
+                <text x="50%" y="98" text-anchor="middle"
+                    font-family="'Inter', 'Segoe UI', sans-serif"
+                    font-weight="900" font-style="italic" font-size="108" letter-spacing="6"
+                    class="srl-fill">SRL</text>
+            </svg>
+        </div>
+
+        <div class="intro-title">SỔ RÈN LUYỆN</div>
+        <div class="intro-sub">ĐẠI HỌC CẦN THƠ</div>
+    </div>
+
     <!-- Modal thông báo tạo tài khoản thành công -->
     <div id="register-success-modal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.55); backdrop-filter: blur(4px); z-index: 9999; align-items: center; justify-content: center; padding: 16px;">
         <div style="background: var(--white); color: var(--text-dark); width: 100%; max-width: 420px; border-radius: 20px; padding: 28px 24px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25); text-align: center; border: 1px solid rgba(148, 163, 184, 0.2);">
@@ -2189,7 +2474,141 @@
     <!-- MÀN HÌNH THÔNG BÁO BẢO TRÌ CHO NGƯỜI DÙNG THƯỜNG -->
     <div id="maintenance-overlay">
         <div class="maintenance-card">
-            <div class="maintenance-icon" id="maint-secret-trigger" onclick="handleMaintIconTap()" style="cursor: pointer; user-select: none;" title="Hệ thống đang bảo trì">🛠️</div>
+            <div class="maint-build-wrap" id="maint-secret-trigger" onclick="handleMaintIconTap()" title="Hệ thống đang xây dựng">
+                <svg class="maint-build-svg" viewBox="0 0 800 600" role="img" aria-label="Hoạt hình trang web đang được xây dựng">
+                    <defs>
+                        <clipPath id="bldTapeClip"><rect x="200" y="470" width="400" height="26" rx="4"/></clipPath>
+                        <clipPath id="bldWinClip"><rect x="200" y="230" width="400" height="270" rx="14"/></clipPath>
+                    </defs>
+
+                    <!-- Mặt đất -->
+                    <rect x="0" y="520" width="800" height="80" fill="var(--b-soft)"/>
+                    <line x1="0" y1="520" x2="800" y2="520" stroke="var(--b-ink)" stroke-width="3"/>
+
+                    <!-- Cửa sổ trình duyệt -->
+                    <rect x="200" y="230" width="400" height="270" rx="14" fill="#fff" stroke="var(--b-ink)" stroke-width="4"/>
+                    <g clip-path="url(#bldWinClip)">
+                        <rect x="200" y="230" width="400" height="34" fill="var(--b-ink)"/>
+                        <circle cx="224" cy="247" r="6" fill="#8c9bf7"/>
+                        <circle cx="244" cy="247" r="6" fill="#b7c0fb"/>
+                        <circle cx="264" cy="247" r="6" fill="#e0e4ff"/>
+                        <rect x="300" y="238" width="260" height="18" rx="9" fill="#475069"/>
+                    </g>
+
+                    <!-- Các khối nội dung -->
+                    <rect class="piece p1" x="220" y="280" width="360" height="30" rx="6" fill="var(--b-teal)"/>
+                    <rect class="piece p2" x="220" y="322" width="360" height="62" rx="8" fill="var(--b-orange)"/>
+                    <rect class="piece p3" x="220" y="396" width="108" height="56" rx="8" fill="var(--b-yellow)"/>
+                    <rect class="piece p4" x="346" y="396" width="108" height="56" rx="8" fill="var(--b-teal)"/>
+                    <rect class="piece p5" x="472" y="396" width="108" height="56" rx="8" fill="var(--b-orange)"/>
+
+                    <!-- Băng cảnh báo -->
+                    <g clip-path="url(#bldTapeClip)">
+                        <rect x="200" y="470" width="400" height="26" fill="var(--b-yellow)"/>
+                        <g class="tape">
+                            <g fill="var(--b-ink)">
+                                <polygon points="120,496 140,470 160,470 140,496"/>
+                                <polygon points="160,496 180,470 200,470 180,496"/>
+                                <polygon points="200,496 220,470 240,470 220,496"/>
+                                <polygon points="240,496 260,470 280,470 260,496"/>
+                                <polygon points="280,496 300,470 320,470 300,496"/>
+                                <polygon points="320,496 340,470 360,470 340,496"/>
+                                <polygon points="360,496 380,470 400,470 380,496"/>
+                                <polygon points="400,496 420,470 440,470 420,496"/>
+                                <polygon points="440,496 460,470 480,470 460,496"/>
+                                <polygon points="480,496 500,470 520,470 500,496"/>
+                                <polygon points="520,496 540,470 560,470 540,496"/>
+                                <polygon points="560,496 580,470 600,470 580,496"/>
+                                <polygon points="600,496 620,470 640,470 620,496"/>
+                            </g>
+                        </g>
+                    </g>
+                    <rect x="200" y="470" width="400" height="26" rx="4" fill="none" stroke="var(--b-ink)" stroke-width="3"/>
+
+                    <!-- Cần cẩu -->
+                    <g>
+                        <rect x="96" y="90" width="22" height="430" fill="var(--b-orange)" stroke="var(--b-ink)" stroke-width="3"/>
+                        <g stroke="var(--b-ink)" stroke-width="2" fill="none">
+                            <path d="M96 110 L118 150 L96 190 L118 230 L96 270 L118 310 L96 350 L118 390 L96 430 L118 470 L96 510"/>
+                        </g>
+                        <!-- Cần ngang -->
+                        <rect x="40" y="84" width="470" height="16" rx="3" fill="var(--b-orange)" stroke="var(--b-ink)" stroke-width="3"/>
+                        <path d="M118 84 L118 60 L300 84" fill="none" stroke="var(--b-ink)" stroke-width="3"/>
+                        <rect x="30" y="76" width="30" height="32" fill="var(--b-ink)"/>
+                        <!-- Xe con + dây + khối treo -->
+                        <g class="trolley">
+                            <g transform="translate(180 100)">
+                                <rect x="-16" y="-4" width="32" height="12" rx="3" fill="var(--b-ink)"/>
+                                <g class="swing">
+                                    <line x1="0" y1="8" x2="0" y2="48" stroke="var(--b-ink)" stroke-width="3"/>
+                                    <circle cx="0" cy="58" r="10" fill="#3b3f73" stroke="var(--b-ink)" stroke-width="3"/>
+                                    <g transform="translate(0 66) scale(1.35) translate(0 -66)">
+                                        <line x1="0" y1="66" x2="-17" y2="118" stroke="var(--b-ink)" stroke-width="2.5"/>
+                                        <line x1="0" y1="66" x2="17" y2="118" stroke="var(--b-ink)" stroke-width="2.5"/>
+                                        <polygon points="0,101 34,135 0,169 -34,135" fill="var(--b-yellow)" stroke="var(--b-ink)" stroke-width="4" stroke-linejoin="round"/>
+                                        <polygon points="0,110 25,135 0,160 -25,135" fill="none" stroke="var(--b-ink)" stroke-width="2" stroke-linejoin="round"/>
+                                        <rect x="-3.5" y="119" width="7" height="22" rx="3.5" fill="var(--b-ink)"/>
+                                        <circle cx="0" cy="150" r="4.5" fill="var(--b-ink)"/>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+
+                    <!-- Bánh răng -->
+                    <g>
+                        <g class="gear g1">
+                            <circle cx="680" cy="400" r="38" fill="none" stroke="var(--b-ink)" stroke-width="14" stroke-dasharray="14.9 14.9"/>
+                            <circle cx="680" cy="400" r="32" fill="var(--b-teal)" stroke="var(--b-ink)" stroke-width="4"/>
+                            <circle cx="680" cy="400" r="11" fill="var(--b-bg)" stroke="var(--b-ink)" stroke-width="4"/>
+                        </g>
+                        <g class="gear g2">
+                            <circle cx="722" cy="455" r="26" fill="none" stroke="var(--b-ink)" stroke-width="11" stroke-dasharray="10.2 10.2"/>
+                            <circle cx="722" cy="455" r="21" fill="var(--b-orange)" stroke="var(--b-ink)" stroke-width="4"/>
+                            <circle cx="722" cy="455" r="7" fill="var(--b-bg)" stroke="var(--b-ink)" stroke-width="3"/>
+                        </g>
+                    </g>
+
+                    <!-- Cọc tiêu -->
+                    <g class="cone">
+                        <polygon points="150,520 190,520 178,452 162,452" fill="var(--b-orange)" stroke="var(--b-ink)" stroke-width="3"/>
+                        <polygon points="157,488 183,488 180,474 160,474" fill="#fff"/>
+                        <rect x="144" y="518" width="52" height="8" rx="3" fill="var(--b-ink)"/>
+                    </g>
+
+                    <!-- Công nhân ngồi gõ laptop trên mép cửa sổ -->
+                    <g transform="translate(545 230) scale(-1 1)" stroke-linecap="round" stroke-linejoin="round">
+                        <g class="swingleg">
+                            <line x1="30" y1="-8" x2="-8" y2="-8" stroke="var(--b-ink)" stroke-width="16"/>
+                            <line x1="30" y1="-8" x2="-8" y2="-8" stroke="#3b3f73" stroke-width="11"/>
+                            <line x1="-8" y1="-8" x2="-14" y2="24" stroke="var(--b-ink)" stroke-width="15"/>
+                            <line x1="-8" y1="-8" x2="-14" y2="24" stroke="#3b3f73" stroke-width="10"/>
+                            <ellipse cx="-19" cy="30" rx="11" ry="5.5" fill="var(--b-ink)"/>
+                        </g>
+                        <rect x="20" y="-56" width="32" height="58" rx="13" fill="#e8ecff" stroke="var(--b-ink)" stroke-width="3"/>
+                        <g class="worker-head">
+                            <circle cx="34" cy="-68" r="12" fill="#f4b183" stroke="var(--b-ink)" stroke-width="2.5"/>
+                            <path d="M19 -70 A15 15 0 0 1 49 -70 Z" fill="var(--b-yellow)" stroke="var(--b-ink)" stroke-width="2.5"/>
+                            <rect x="12" y="-71" width="26" height="5" rx="2.5" fill="var(--b-yellow)" stroke="var(--b-ink)" stroke-width="2.5"/>
+                            <line x1="34" y1="-84" x2="34" y2="-72" stroke="var(--b-ink)" stroke-width="2"/>
+                        </g>
+                        <rect x="-6" y="-22" width="34" height="5" rx="2.5" fill="var(--b-ink)"/>
+                        <rect x="-8" y="-50" width="6" height="30" rx="2.5" fill="var(--b-ink)" transform="rotate(-6 -5 -20)"/>
+                        <g class="typing">
+                            <line x1="38" y1="-42" x2="14" y2="-26" stroke="var(--b-ink)" stroke-width="12"/>
+                            <line x1="38" y1="-42" x2="14" y2="-26" stroke="#e8ecff" stroke-width="8"/>
+                            <circle cx="12" cy="-25" r="4.5" fill="#f4b183" stroke="var(--b-ink)" stroke-width="2"/>
+                        </g>
+                    </g>
+
+                    <!-- Chữ + tiến độ -->
+                    <text x="400" y="560" text-anchor="middle" font-size="26" font-weight="800" letter-spacing="3" fill="var(--b-ink)" class="dots">
+                        <tspan>ĐANG NÂNG CẤP</tspan><tspan>.</tspan><tspan>.</tspan><tspan>.</tspan>
+                    </text>
+                    <rect x="270" y="574" width="260" height="10" rx="5" fill="#fff" stroke="var(--b-ink)" stroke-width="2"/>
+                    <rect class="bar" x="272" y="576" width="256" height="6" rx="3" fill="var(--b-orange)"/>
+                </svg>
+            </div>
             <h2>HỆ THỐNG ĐANG BẢO TRÌ</h2>
             <p id="maintenance-public-msg" style="margin-bottom: 16px;">Hệ thống Sổ Rèn Luyện hiện đang tạm đóng để nâng cấp và bảo trì dữ liệu. Vui lòng quay lại sau!</p>
             <div id="maintenance-time-box" style="background: var(--bg-gray); border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; margin-bottom: 18px;">
@@ -4193,6 +4612,8 @@
         }
 
         function switchTab(tabId, e = null) {
+            const tabKey = 'srl_last_tab_' + (currentUserId || 'guest');
+            localStorage.setItem(tabKey, tabId);
             document.getElementById('tab-overview').style.display = 'none';
             document.getElementById('tab-classification').style.display = 'none';
             document.getElementById('tab-calendar').style.display = 'none';
@@ -4953,29 +5374,44 @@
             const loginPage = document.getElementById('login-page');
             const dashboardPage = document.getElementById('dashboard-page');
 
+            const savedTab = localStorage.getItem('srl_last_tab_' + currentUserId) || 'overview';
+
             updateAdminUIState();
             if (skipAnimation) {
-                loginPage.style.display = 'none';
-                dashboardPage.style.display = 'block';
-                switchTab('overview');
+                if (savedTab === 'home') {
+                    loginPage.style.display = 'flex';
+                    dashboardPage.style.display = 'none';
+                    updateLoginBoxView(true);
+                } else {
+                    loginPage.style.display = 'none';
+                    dashboardPage.style.display = 'block';
+                    switchTab(savedTab);
+                }
                 updateDashboard();
             } else {
-                const rect = triggerEl ? triggerEl.getBoundingClientRect() : { left: window.innerWidth / 2, top: window.innerHeight / 2, width: 0, height: 0 };
-                
-                dashboardPage.style.setProperty('--click-x', `${rect.left + rect.width / 2}px`);
-                dashboardPage.style.setProperty('--click-y', `${rect.top + rect.height / 2}px`);
+                if (savedTab === 'home') {
+                    loginPage.style.display = 'flex';
+                    dashboardPage.style.display = 'none';
+                    updateLoginBoxView(true);
+                    updateDashboard();
+                } else {
+                    const rect = triggerEl ? triggerEl.getBoundingClientRect() : { left: window.innerWidth / 2, top: window.innerHeight / 2, width: 0, height: 0 };
 
-                loginPage.style.zIndex = '1'; dashboardPage.style.zIndex = '10';
-                dashboardPage.style.display = 'block'; dashboardPage.classList.add('page-shape-in');
-                
-                switchTab('overview');
-                updateDashboard();
+                    dashboardPage.style.setProperty('--click-x', `${rect.left + rect.width / 2}px`);
+                    dashboardPage.style.setProperty('--click-y', `${rect.top + rect.height / 2}px`);
 
-                setTimeout(() => {
-                    loginPage.style.display = 'none';
-                    dashboardPage.classList.remove('page-shape-in');
-                    dashboardPage.style.zIndex = ''; loginPage.style.zIndex = '';
-                }, 750);
+                    loginPage.style.zIndex = '1'; dashboardPage.style.zIndex = '10';
+                    dashboardPage.style.display = 'block'; dashboardPage.classList.add('page-shape-in');
+
+                    switchTab(savedTab);
+                    updateDashboard();
+
+                    setTimeout(() => {
+                        loginPage.style.display = 'none';
+                        dashboardPage.classList.remove('page-shape-in');
+                        dashboardPage.style.zIndex = ''; loginPage.style.zIndex = '';
+                    }, 750);
+                }
             }
         }
 
@@ -5118,6 +5554,7 @@ function updateLoginBoxView(isLoggedIn) {
 
 // Bấm logo "Sổ Rèn Luyện" -> #login-page mở rộng che kín Dashboard (mượt, không chồng hình)
         function goToHomePage(e) {
+            localStorage.setItem('srl_last_tab_' + (currentUserId || 'guest'), 'home');
             updateLoginBoxView(true);
             markSessionActive();
 
@@ -5144,6 +5581,9 @@ function updateLoginBoxView(isLoggedIn) {
         // Bấm "Tiếp tục vào Sổ Rèn Luyện" -> #login-page thu nhỏ để lộ Dashboard bên dưới
         function returnToDashboard(e) {
             markSessionActive();
+            const prevTab = localStorage.getItem('srl_last_tab_' + (currentUserId || 'guest'));
+            const targetTab = (!prevTab || prevTab === 'home') ? 'overview' : prevTab;
+            switchTab(targetTab);
 
             const loginPage = document.getElementById('login-page');
             const dashboardPage = document.getElementById('dashboard-page');
@@ -5170,6 +5610,7 @@ function updateLoginBoxView(isLoggedIn) {
         async function logout(e) {
             localStorage.removeItem('srl_has_session');
             document.documentElement.classList.remove('restoring-session');
+            localStorage.removeItem('srl_last_tab_' + (currentUserId || 'guest'));
             clearSessionTimestamps(currentUserId);
             localStorage.removeItem("srl_is_admin_device");
             if (currentUserId) {
@@ -8765,6 +9206,22 @@ ${modeConfirmDetail}`
                 } catch (err) {}
             }
         }
+
+        // Tự động tắt màn hình Intro sau ~5.3 giây (hoặc bỏ qua nếu đang khôi phục phiên)
+        (function initIntroScreen() {
+            const introEl = document.getElementById('srl-intro-screen');
+            if (!introEl) return;
+
+            if (localStorage.getItem('srl_has_session') === '1') {
+                introEl.remove();
+                return;
+            }
+
+            setTimeout(() => {
+                introEl.classList.add('intro-hidden');
+                setTimeout(() => introEl.remove(), 800);
+            }, 5300);
+        })();
     </script>
 </body>
 </html>
