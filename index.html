@@ -6,6 +6,7 @@
     <title>Sổ Rèn Luyện</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="lang.js"></script>
     <link rel="stylesheet" href="themes.css">
     <!-- 🌟 ĐOẠN SCRIPT KHỞI TẠO THEME TỨC THÌ (TRÁNH CHỚP NHÁY KHI RELOAD) -->
     <script>
@@ -1857,6 +1858,154 @@
                 height: 6px !important;
             }
         }
+
+        /* Thẻ phiên đăng nhập hiện đại (Light & Dark mode) */
+        .session-card {
+            background: var(--white);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .session-banner {
+            height: 92px;
+            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 55%, #8b5cf6 100%);
+            position: relative;
+        }
+        .session-banner::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.28), transparent 55%);
+        }
+        .session-body {
+            padding: 0 26px 26px;
+        }
+        .session-avatar-wrap {
+            position: relative;
+            width: 84px;
+            height: 84px;
+            margin: -42px auto 12px;
+            z-index: 2;
+        }
+        #home-user-avatar {
+            width: 84px;
+            height: 84px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 800;
+            overflow: hidden;
+            border: 4px solid var(--white);
+            box-shadow: 0 10px 24px rgba(79, 70, 229, 0.32);
+        }
+        .session-online-dot {
+            position: absolute;
+            right: -2px;
+            bottom: -2px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #22c55e;
+            border: 3px solid var(--white);
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+        }
+        .session-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 99px;
+            background: rgba(34, 197, 94, 0.14);
+            color: #16a34a;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .session-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0 22px;
+            padding: 14px 10px;
+            border-radius: 16px;
+            background: rgba(99, 102, 241, 0.06);
+            border: 1px solid rgba(99, 102, 241, 0.14);
+        }
+        .session-stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .session-stat-val {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+        .session-stat-lbl {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .session-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .session-btn-primary {
+            width: 100%;
+            height: 48px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #3b82f6 0%, #4f46e5 100%);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 22px rgba(59, 130, 246, 0.3);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+        .session-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(59, 130, 246, 0.4);
+        }
+        .session-btn-logout {
+            width: 100%;
+            height: 44px;
+            border-radius: 14px;
+            background: transparent;
+            border: 1px solid rgba(239, 68, 68, 0.35);
+            color: #ef4444;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.18s ease, border-color 0.18s ease;
+        }
+        .session-btn-logout:hover {
+            background: rgba(239, 68, 68, 0.08);
+            border-color: #ef4444;
+        }
+        .session-hint {
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        html.restoring-session #login-page {
+            display: none !important;
+        }
+
         /* KHÓA CỨNG TỶ LỆ MÀN HÌNH ĐĂNG NHẬP (CẢ KHI PHÓNG TO LẪN THU NHỎ 25%) */
             #login-page {
                 /* XÓA dòng display: flex !important; ở đây đi */
@@ -2005,9 +2154,38 @@
         })();
     </script>
     <script src="themes.js"></script>
+    <script>
+    (function () {
+        if (localStorage.getItem('srl_has_session') === '1') {
+            document.documentElement.classList.add('restoring-session');
+            // Bảo hiểm: tự gỡ sau 4 giây nếu mạng quá chậm/mất kết nối
+            setTimeout(() => document.documentElement.classList.remove('restoring-session'), 4000);
+        }
+    })();
+</script>
 </head>
 <body>
+    <!-- Modal thông báo tạo tài khoản thành công -->
+    <div id="register-success-modal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.55); backdrop-filter: blur(4px); z-index: 9999; align-items: center; justify-content: center; padding: 16px;">
+        <div style="background: var(--white); color: var(--text-dark); width: 100%; max-width: 420px; border-radius: 20px; padding: 28px 24px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25); text-align: center; border: 1px solid rgba(148, 163, 184, 0.2);">
+            <div style="width: 56px; height: 56px; margin: 0 auto 14px; border-radius: 50%; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800;">
+                ✓
+            </div>
+            <h3 style="margin: 0 0 8px; font-size: 20px; color: #16a34a;">Chúc mừng bạn đã tạo tài khoản thành công!</h3>
+            <p style="margin: 0 0 18px; font-size: 13px; color: var(--text-light);">Vui lòng lưu lại thông tin bên dưới để đăng nhập vào hệ thống:</p>
 
+            <div style="text-align: left; background: rgba(99, 102, 241, 0.06); border: 1px solid rgba(99, 102, 241, 0.15); border-radius: 14px; padding: 14px 16px; margin-bottom: 20px; font-size: 14px; display: flex; flex-direction: column; gap: 10px;">
+                <div><strong>Họ và tên đầy đủ:</strong> <span id="reg-info-name"></span></div>
+                <div><strong>MSSV:</strong> <span id="reg-info-mssv"></span></div>
+                <div><strong>Email:</strong> <span id="reg-info-email"></span></div>
+                <div><strong>Mật khẩu:</strong> <span id="reg-info-pass"></span></div>
+            </div>
+
+            <button type="button" onclick="closeRegisterSuccessModal()" class="login-btn" style="width: 100%; margin: 0;">
+                Đóng
+            </button>
+        </div>
+    </div>
     <!-- MÀN HÌNH THÔNG BÁO BẢO TRÌ CHO NGƯỜI DÙNG THƯỜNG -->
     <div id="maintenance-overlay">
         <div class="maintenance-card">
@@ -2077,6 +2255,14 @@
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                 </svg>
             </button>
+            <select id="lang-selector-home" onchange="setLanguage(this.value)" class="btn-outline" style="position: absolute; top: 20px; right: 72px; height: 42px; padding: 0 10px; font-size: 13px; cursor: pointer; z-index: 100; background: var(--white); border-color: #cbd5e1;" title="Chọn ngôn ngữ">
+                <option value="vi">🇻🇳 Tiếng Việt</option>
+                <option value="en">🇬🇧 English</option>
+                <option value="ja">🇯🇵 日本語</option>
+                <option value="ko">🇰🇷 한국어</option>
+                <option value="zh">🇨🇳 中文</option>
+                <option value="fr">🇫🇷 Français</option>
+            </select>
             <div class="left-panel">
                 <div class="left-header">
                     <div class="logo-text">
@@ -2107,60 +2293,97 @@
 
             <div class="right-panel">
                 <div class="login-box">
-                    <div class="user-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                        </svg>
+                    <!-- 1. GIAO DIỆN KHI CHƯA ĐĂNG NHẬP -->
+                    <div id="auth-guest-view">
+                        <div class="user-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <h2>Chào bạn, bắt đầu nhé!</h2>
+                        <p style="margin-bottom: 24px;">Đăng nhập bằng Email & Mật khẩu để đồng bộ dữ liệu an toàn.</p>
+
+                        <div class="auth-tabs">
+                            <button type="button" class="auth-tab active" id="tab-btn-login" onclick="switchAuthMode('login')">Đăng nhập</button>
+                            <button type="button" class="auth-tab" id="tab-btn-register" onclick="switchAuthMode('register')">Tạo tài khoản</button>
+                        </div>
+
+                        <form id="login-form" autocomplete="on">
+                            <div class="input-group" id="register-name-group" style="display: none; margin-bottom: 16px;">
+                                <label>Họ và tên đầy đủ</label>
+                                <input type="text" id="user-name" placeholder="Ví dụ: Nguyễn Hoàng Trí">
+                            </div>
+                            <div class="input-group" id="register-mssv-group" style="display: none; margin-bottom: 16px;">
+                                <label>Mã số sinh viên (MSSV)</label>
+                                <input type="text" id="user-mssv" placeholder="Ví dụ: B2510141">
+                            </div>
+                            <div class="input-group" style="margin-bottom: 16px;">
+                                <label>Email</label>
+                                <input type="email" id="user-email" placeholder="ten@student.ctu.edu.vn" required>
+                            </div>
+                            <div class="input-group" style="margin-bottom: 20px;">
+                                <label>Mật khẩu (tối thiểu 6 ký tự)</label>
+                                <input type="password" id="user-password" placeholder="••••••••" minlength="6" required>
+                            </div>
+                            <button type="submit" id="auth-submit-btn" class="login-btn" style="margin-bottom: 12px;">Đăng nhập</button>
+                            <div id="forgot-password-wrap" style="text-align: center;">
+                                <a href="javascript:void(0)" onclick="resetUserPassword()" style="font-size: 13px; color: var(--primary); text-decoration: none; font-weight: 500;">Quên mật khẩu?</a>
+                            </div>
+                        </form>
                     </div>
-                    <h2>Chào bạn, bắt đầu nhé!</h2>
-                    <p style="margin-bottom: 24px;">Đăng nhập bằng tài khoản Google (Email sinh viên) hoặc Email & Mật khẩu để đồng bộ dữ liệu an toàn.</p>
 
-                    <button type="button" id="google-login-btn" class="google-btn" onclick="loginWithGoogle(event)">
-                        <svg width="20" height="20" viewBox="0 0 48 48">
-                            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-                            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-                            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-                            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-                        </svg>
-                        Tiếp tục với Google (Email sinh viên)
-                    </button>
+                    <!-- 2. GIAO DIỆN KHI ĐÃ ĐĂNG NHẬP (Hiện khi bấm "Sổ Rèn Luyện" quay về trang chủ) -->
+                    <!-- 2. GIAO DIỆN KHI ĐÃ ĐĂNG NHẬP -->
+                    <div id="auth-logged-in-view" style="display: none;">
+                        <div class="session-card">
+                            <div class="session-banner"></div>
+                            <div class="session-body">
+                                <div class="session-avatar-wrap">
+                                    <div id="home-user-avatar">SV</div>
+                                    <span class="session-online-dot" title="Đang hoạt động"></span>
+                                </div>
 
-                    <div class="auth-divider"><span>hoặc dùng Email & Mật khẩu</span></div>
+                                <div class="session-badge">● Đang đăng nhập</div>
+                                <h2 id="home-user-name" style="margin: 0 0 6px; font-size: 22px;">Sinh viên</h2>
+                                <p id="home-user-meta" style="margin: 0; color: var(--text-light); font-size: 13px; word-break: break-word;"></p>
 
-                    <div class="auth-tabs">
-                        <button type="button" class="auth-tab active" id="tab-btn-login" onclick="switchAuthMode('login')">Đăng nhập</button>
-                        <button type="button" class="auth-tab" id="tab-btn-register" onclick="switchAuthMode('register')">Tạo tài khoản</button>
+                                <div class="session-stats">
+                                    <div class="session-stat-item">
+                                        <span class="session-stat-val" id="home-stat-score" style="color: #3b82f6;">0</span>
+                                        <span class="session-stat-lbl">Điểm</span>
+                                    </div>
+                                    <div class="session-stat-item">
+                                        <span class="session-stat-val" id="home-stat-count">0</span>
+                                        <span class="session-stat-lbl">Hoạt động</span>
+                                    </div>
+                                    <div class="session-stat-item">
+                                        <span class="session-stat-val" id="home-stat-rank" style="font-size: 14px;">--</span>
+                                        <span class="session-stat-lbl">Xếp loại</span>
+                                    </div>
+                                </div>
+
+                                <div class="session-actions">
+                                    <button type="button" class="session-btn-primary" onclick="returnToDashboard(event)">
+                                        Tiếp tục vào Sổ Rèn Luyện →
+                                    </button>
+                                    <button type="button" class="session-btn-logout" onclick="logout(event)">
+                                        Đăng xuất tài khoản
+                                    </button>
+                                </div>
+
+                                <div class="session-hint">
+                                    🛡️ Phiên tự động đăng xuất sau 7 phút không tương tác
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <form id="login-form" autocomplete="on">
-                        <div class="input-group" id="register-name-group" style="display: none; margin-bottom: 16px;">
-                            <label>Họ và tên đầy đủ</label>
-                            <input type="text" id="user-name" placeholder="Ví dụ: Nguyễn Hoàng Trí">
-                        </div>
-                        <div class="input-group" id="register-mssv-group" style="display: none; margin-bottom: 16px;">
-                            <label>Mã số sinh viên (MSSV)</label>
-                            <input type="text" id="user-mssv" placeholder="Ví dụ: B2510141">
-                        </div>
-                        <div class="input-group" style="margin-bottom: 16px;">
-                            <label>Email</label>
-                            <input type="email" id="user-email" placeholder="ten@student.ctu.edu.vn" required>
-                        </div>
-                        <div class="input-group" style="margin-bottom: 20px;">
-                            <label>Mật khẩu (tối thiểu 6 ký tự)</label>
-                            <input type="password" id="user-password" placeholder="••••••••" minlength="6" required>
-                        </div>
-                        <button type="submit" id="auth-submit-btn" class="login-btn" style="margin-bottom: 12px;">Đăng nhập</button>
-                        <div style="text-align: center;">
-                            <a href="javascript:void(0)" onclick="resetUserPassword()" style="font-size: 13px; color: var(--primary); text-decoration: none; font-weight: 500;">Quên mật khẩu?</a>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
 
         <div id="dashboard-page" class="page">
             <div class="sidebar">
-                <div class="logo" onclick="logout(event)" title="Đăng xuất">
+                <div class="logo" onclick="goToHomePage(event)" title="Về trang chủ">
                     <img src="ctu.png" alt="Logo">
                     <span class="logo-label">Sổ Rèn Luyện</span>
                 </div>
@@ -2266,6 +2489,14 @@
                                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                             </svg>
                         </button>
+                        <select id="lang-selector" onchange="setLanguage(this.value)" class="btn-outline" style="height: 42px; padding: 0 10px; font-size: 13px; cursor: pointer;" title="Chọn ngôn ngữ">
+                            <option value="vi">🇻🇳 Tiếng Việt</option>
+                            <option value="en">🇬🇧 English</option>
+                            <option value="ja">🇯🇵 日本語</option>
+                            <option value="ko">🇰🇷 한국어</option>
+                            <option value="zh">🇨🇳 中文</option>
+                            <option value="fr">🇫🇷 Français</option>
+                        </select>
                     </div>
                 </div>
 
@@ -4495,7 +4726,7 @@
                 mssvGroup.style.display = 'block';
                 nameInput.setAttribute('required', 'required');
                 mssvInput.setAttribute('required', 'required');
-                submitBtn.innerText = 'Tạo tài khoản & Đăng nhập';
+                submitBtn.innerText = 'Tạo tài khoản';
                 tabRegister.classList.add('active');
                 tabLogin.classList.remove('active');
             } else {
@@ -4507,6 +4738,8 @@
                 tabLogin.classList.add('active');
                 tabRegister.classList.remove('active');
             }
+            const forgotWrap = document.getElementById('forgot-password-wrap');
+            if (forgotWrap) forgotWrap.style.display = (mode === 'login') ? 'block' : 'none';
         }
 
         function formatFirebaseAuthError(err) {
@@ -4620,6 +4853,7 @@
         async function completeUserSession(firebaseUser, triggerEl, regInfo = null, skipAnimation = false) {
             currentUserId = firebaseUser.uid;
             markSessionActive();
+            localStorage.setItem('srl_has_session', '1');
             let loadedFromCloud = false;
             let cloudDisplayName = '';
             let cloudMssv = '';
@@ -4672,6 +4906,8 @@
             }
             const parsed = parseProfileNameAndMssv(preferredRawName, firebaseUser.email, preferredMssv);
             updateSidebarProfileUI(parsed.fullName, parsed.mssv);
+            updateLoginBoxView(true);
+            document.documentElement.classList.remove('restoring-session');
 
             if (parsed.mssv) {
                 localStorage.setItem("srl_mssv_" + currentUserId, parsed.mssv);
@@ -4805,11 +5041,34 @@
                     }
                     userCredential = await auth.createUserWithEmailAndPassword(email, password);
                     await userCredential.user.updateProfile({ displayName: displayNameInput });
-                    regInfo = { fullName: displayNameInput, mssv: mssvInputVal };
+
+                    // Lưu họ tên & MSSV lên Firestore
+                    try {
+                        await db.collection("users").doc(userCredential.user.uid).set({
+                            displayName: displayNameInput,
+                            mssv: mssvInputVal,
+                            email: email,
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                        }, { merge: true });
+                    } catch (saveErr) {
+                        console.warn("Lỗi lưu hồ sơ khi đăng ký:", saveErr);
+                    }
+
+                    // Đăng xuất phiên tạm để không tự vào Dashboard
+                    localStorage.removeItem('srl_has_session');
+                    await auth.signOut();
+
+                    // Đổ thông tin vào bảng và hiện giữa màn hình
+                    document.getElementById('reg-info-name').innerText = displayNameInput;
+                    document.getElementById('reg-info-mssv').innerText = mssvInputVal;
+                    document.getElementById('reg-info-email').innerText = email;
+                    document.getElementById('reg-info-pass').innerText = password;
+                    document.getElementById('register-success-modal').style.display = 'flex';
+                    return;
                 } else {
                     userCredential = await auth.signInWithEmailAndPassword(email, password);
+                    await completeUserSession(userCredential.user, btn, regInfo);
                 }
-                await completeUserSession(userCredential.user, btn, regInfo);
             } catch (err) {
                 alert(formatFirebaseAuthError(err));
             } finally {
@@ -4817,8 +5076,100 @@
                 btn.disabled = false;
             }
         });
+        function closeRegisterSuccessModal() {
+                    document.getElementById('register-success-modal').style.display = 'none';
+                    document.getElementById('login-form').reset();
+                    switchAuthMode('login');
+                }
+
+
+function updateLoginBoxView(isLoggedIn) {
+            const guestView = document.getElementById('auth-guest-view');
+            const loggedInView = document.getElementById('auth-logged-in-view');
+            if (!guestView || !loggedInView) return;
+
+            if (isLoggedIn && currentUserId) {
+                guestView.style.display = 'none';
+                loggedInView.style.display = 'block';
+
+                const nameEl = document.getElementById('home-user-name');
+                const metaEl = document.getElementById('home-user-meta');
+                const avatarEl = document.getElementById('home-user-avatar');
+
+                if (nameEl) nameEl.innerText = currentUser || 'Sinh viên';
+                const mssv = localStorage.getItem("srl_mssv_" + currentUserId) || '';
+                const email = (auth.currentUser && auth.currentUser.email) || '';
+                if (metaEl) metaEl.innerText = [mssv ? `MSSV: ${mssv}` : '', email].filter(Boolean).join(' • ');
+
+                if (avatarEl) {
+                    const prof = JSON.parse(localStorage.getItem("srl_profile_" + currentUserId) || "{}");
+                    const avatarUrl = prof.avatar || localStorage.getItem("srl_avatar_" + currentUserId) || "";
+                    if (avatarUrl) {
+                        avatarEl.innerHTML = `<img src="${avatarUrl}" alt="Avatar" style="width:100%; height:100%; object-fit:cover;">`;
+                    } else {
+                        avatarEl.innerText = getAvatarInitials(currentUser);
+                    }
+                }
+            } else {
+                guestView.style.display = 'block';
+                loggedInView.style.display = 'none';
+            }
+        }
+
+// Bấm logo "Sổ Rèn Luyện" -> #login-page mở rộng che kín Dashboard (mượt, không chồng hình)
+        function goToHomePage(e) {
+            updateLoginBoxView(true);
+            markSessionActive();
+
+            const loginPage = document.getElementById('login-page');
+            const dashboardPage = document.getElementById('dashboard-page');
+            const rect = e && e.currentTarget ? e.currentTarget.getBoundingClientRect() : { left: 50, top: 50, width: 0, height: 0 };
+
+            loginPage.style.setProperty('--click-x', `${rect.left + rect.width / 2}px`);
+            loginPage.style.setProperty('--click-y', `${rect.top + rect.height / 2}px`);
+
+            loginPage.style.zIndex = '50';
+            loginPage.style.display = 'flex';
+            loginPage.classList.remove('page-shape-out', 'page-shape-in');
+            void loginPage.offsetWidth;
+            loginPage.classList.add('page-shape-in');
+
+            setTimeout(() => {
+                dashboardPage.style.display = 'none';
+                loginPage.classList.remove('page-shape-in');
+                loginPage.style.zIndex = '';
+            }, 750);
+        }
+
+        // Bấm "Tiếp tục vào Sổ Rèn Luyện" -> #login-page thu nhỏ để lộ Dashboard bên dưới
+        function returnToDashboard(e) {
+            markSessionActive();
+
+            const loginPage = document.getElementById('login-page');
+            const dashboardPage = document.getElementById('dashboard-page');
+            const rect = e && e.currentTarget ? e.currentTarget.getBoundingClientRect() : { left: window.innerWidth / 2, top: window.innerHeight / 2, width: 0, height: 0 };
+
+            loginPage.style.setProperty('--click-x', `${rect.left + rect.width / 2}px`);
+            loginPage.style.setProperty('--click-y', `${rect.top + rect.height / 2}px`);
+
+            dashboardPage.style.display = 'block';
+            dashboardPage.style.zIndex = '2';
+            loginPage.style.zIndex = '50';
+            loginPage.classList.remove('page-shape-in', 'page-shape-out');
+            void loginPage.offsetWidth;
+            loginPage.classList.add('page-shape-out');
+
+            setTimeout(() => {
+                loginPage.style.display = 'none';
+                loginPage.classList.remove('page-shape-out');
+                loginPage.style.zIndex = '';
+                dashboardPage.style.zIndex = '';
+            }, 750);
+        }
 
         async function logout(e) {
+            localStorage.removeItem('srl_has_session');
+            document.documentElement.classList.remove('restoring-session');
             clearSessionTimestamps(currentUserId);
             localStorage.removeItem("srl_is_admin_device");
             if (currentUserId) {
@@ -4834,11 +5185,33 @@
 
             const loginPage = document.getElementById('login-page');
             const dashboardPage = document.getElementById('dashboard-page');
-            const rect = e && e.target ? e.target.getBoundingClientRect() : { left: 50, top: 50, width: 0, height: 0 };
+            const isDashboardVisible = dashboardPage.style.display !== 'none' && getComputedStyle(dashboardPage).display !== 'none';
 
+            const resetAppState = () => {
+                document.getElementById('login-form').reset();
+                document.getElementById('display-name').innerText = '';
+                currentUser = "";
+                currentUserId = "";
+                isCurrentUserAdminFlag = false;
+                updateLoginBoxView(false);
+                updateAdminUIState();
+                activities = [];
+                coreActivities = [];
+                deletedCoreIds = [];
+                updateDashboard();
+            };
+
+            if (!isDashboardVisible) {
+                loginPage.style.display = 'flex';
+                resetAppState();
+                return;
+            }
+
+            const rect = e && e.target ? e.target.getBoundingClientRect() : { left: 50, top: 50, width: 0, height: 0 };
             dashboardPage.style.setProperty('--click-x', `${rect.left + rect.width / 2}px`);
             dashboardPage.style.setProperty('--click-y', `${rect.top + rect.height / 2}px`);
 
+            updateLoginBoxView(false);
             loginPage.style.display = 'flex'; loginPage.style.zIndex = '1';
             dashboardPage.style.zIndex = '10'; dashboardPage.classList.add('page-shape-out');
 
@@ -4846,18 +5219,7 @@
                 dashboardPage.style.display = 'none';
                 dashboardPage.classList.remove('page-shape-out');
                 dashboardPage.style.zIndex = ''; loginPage.style.zIndex = '';
-                
-                document.getElementById('login-form').reset();
-                document.getElementById('display-name').innerText = '';
-                
-                currentUser = ""; 
-                currentUserId = "";
-                isCurrentUserAdminFlag = false;
-                updateAdminUIState();
-                activities = []; 
-                coreActivities = []; 
-                deletedCoreIds = [];
-                updateDashboard();
+                resetAppState();
             }, 750);
         }
 
@@ -7018,6 +7380,8 @@ let syncCloudTimer = null;
 
                 // Nếu đã đóng trang quá 7 phút -> tự động đăng xuất về trang đăng nhập
                 if (lastActive && (Date.now() - lastActive > SESSION_TIMEOUT_MS)) {
+                    localStorage.removeItem('srl_has_session');
+                    document.documentElement.classList.remove('restoring-session');
                     clearSessionTimestamps(firebaseUser.uid);
                     try { await auth.signOut(); } catch (e) {}
                     document.getElementById('login-page').style.display = 'flex';
@@ -7025,10 +7389,12 @@ let syncCloudTimer = null;
                 } else {
                     // Đồng bộ dữ liệu mới nhất từ Firestore (không chớp màn hình)
                     await completeUserSession(firebaseUser, null, null, true);
-                    document.documentElement.classList.remove("session-restoring");
+                    document.documentElement.classList.remove("session-restoring", "restoring-session");
                 }
             } else if (!firebaseUser) {
                 // Phiên Firebase không còn tồn tại -> gỡ ẩn và hiển thị trang chủ đăng nhập
+                localStorage.removeItem('srl_has_session');
+                document.documentElement.classList.remove('restoring-session');
                 clearSessionTimestamps(localStorage.getItem("srl_last_uid"));
                 document.getElementById('login-page').style.display = 'flex';
                 document.getElementById('dashboard-page').style.display = 'none';
