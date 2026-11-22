@@ -6,6 +6,7 @@
     <title>Sổ Rèn Luyện</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="sakura.js"></script>
     <script src="lang.js"></script>
     <link rel="stylesheet" href="themes.css">
     <!-- 🌟 ĐOẠN SCRIPT KHỞI TẠO THEME TỨC THÌ (TRÁNH CHỚP NHÁY KHI RELOAD) -->
@@ -3954,7 +3955,11 @@ body.dark-mode .maint-build-wrap {
                                 <!-- Sẽ được tự động điền bởi themes.js -->
                             </select>
                         </div>
-
+                        <div class="input-group" style="margin-bottom: 16px;">
+                            <label style="color: #b45309; font-weight: 700;">🌸 Chọn hiệu ứng rơi</label>
+                            <select id="admin-fall-effect-select" style="padding: 10px 12px; font-size: 14px; font-weight: 600; border: 1.5px solid #d97706; border-radius: 8px; background: var(--white); color: var(--text-dark);">
+                            </select>
+                        </div>
                         <!-- LỊCH TỰ ĐỘNG ĐỔI CHỦ ĐỀ THEO 12 THÁNG -->
                         <div class="input-group" style="margin-bottom: 16px;">
                             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
@@ -3970,7 +3975,19 @@ body.dark-mode .maint-build-wrap {
                                 </div>
                             </div>
                         </div>
-
+                        <!-- LỊCH TỰ ĐỘNG ĐỔI HIỆU ỨNG RƠI THEO THÁNG (1 – 12) -->
+                        <div class="input-group" style="margin-bottom: 16px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+                                <label style="color: #b45309; font-weight: 700; margin: 0;">🌸 Lịch hiệu ứng rơi theo tháng (1 – 12)</label>
+                                <label style="display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: var(--text-dark); cursor: pointer; margin: 0;">
+                                    <input type="checkbox" id="admin-auto-monthly-fall" style="width: 16px; height: 16px; accent-color: #d97706;">
+                                    Bật tự động áp dụng theo tháng hiện tại
+                                </label>
+                            </div>
+                            <div class="admin-monthly-theme-box">
+                                <div class="monthly-theme-grid" id="admin-monthly-fall-grid"></div>
+                            </div>
+                        </div>
                         <div class="input-group" style="margin-bottom: 16px;">
                             <label style="color: #b45309; font-weight: 700;">🎵 Chọn nhạc nền khi bảo trì</label>
                             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
