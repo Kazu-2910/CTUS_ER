@@ -1,44 +1,241 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi" translate="no">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>404 Page Not Found</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="google" content="notranslate">
+<title>Đang cập nhật - Sổ Rèn Luyện</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Arvo&family=Poppins:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+<script src="sakura.js"></script>
+<script src="lang.js"></script>
 <style>
-  /* ===== style.css ===== */
   * { box-sizing: border-box; margin: 0; padding: 0; }
+
   body {
     min-height: 100vh;
-    display: grid;
-    place-items: center;
-    background: #fafafa;
-    color: #333;
-    font-family: 'Arvo', Georgia, serif;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #1e293b;
+    background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 45%, #fce7f3 100%);
+    background-size: 250% 250%;
+    animation: bgShift 12s ease infinite;
+    overflow: hidden;
+    transition: background 0.3s ease, color 0.3s ease;
   }
-  .page_404 { width: 100%; padding: 24px 16px; text-align: center; }
-  .contant_box_404 { margin-top: 50px; max-width: 560px; margin-inline: auto; }
-  #stage { width: 100%; height: auto; display: block; overflow: visible; }
-  .contant_box_404 h3 { font-size: 26px; font-weight: 400; margin-top: 4px; }
-  .contant_box_404 p  { font-size: 13px; margin-top: 8px; }
+
+  body.dark-mode {
+    color: #f8fafc;
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+    background-size: 250% 250%;
+  }
+
+  @keyframes bgShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Chớp sáng toàn màn hình khi bị giật điện */
+  #zap-flash-overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, rgba(254, 240, 138, 0.38) 0%, rgba(250, 204, 21, 0) 70%);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 15;
+    transition: opacity 0.08s ease;
+  }
+
+  .page_404 {
+    width: 100%;
+    max-width: 560px;
+    position: relative;
+    z-index: 10;
+  }
+
+  /* Khung kính mờ Glassmorphism */
+  .contant_box_404 {
+    background: rgba(255, 255, 255, 0.68);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 28px;
+    padding: 28px 24px 32px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.1);
+    transition: transform 0.06s linear, box-shadow 0.2s ease;
+  }
+
+  body.dark-mode .contant_box_404 {
+    background: rgba(30, 41, 59, 0.65);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .contant_box_404.zapping {
+    box-shadow: 0 0 40px rgba(250, 204, 21, 0.45), 0 20px 50px rgba(15, 23, 42, 0.2);
+  }
+
+  #stage {
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: visible;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body.dark-mode #scene path,
+  body.dark-mode #scene rect,
+  body.dark-mode #scene ellipse {
+    fill: rgba(148, 163, 184, 0.16);
+  }
+  body.dark-mode #scene g[fill="#3fb02f"] circle,
+  body.dark-mode #scene g[fill="#3fb02f"] ellipse {
+    fill: #22c55e;
+  }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 14px;
+    border-radius: 99px;
+    background: rgba(67, 81, 181, 0.12);
+    color: #4351b5;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  body.dark-mode .status-pill {
+    background: rgba(99, 102, 241, 0.22);
+    color: #a5b4fc;
+  }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #f59e0b;
+    animation: pulseDot 1.4s infinite;
+  }
+  @keyframes pulseDot {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.45); opacity: 0.5; }
+  }
+
+  .contant_box_404 h3 {
+    font-size: 22px;
+    font-weight: 800;
+    margin-top: 8px;
+    letter-spacing: -0.2px;
+  }
+
+  .contant_box_404 p {
+    font-size: 14px;
+    margin-top: 8px;
+    color: #64748b;
+    line-height: 1.55;
+  }
+  body.dark-mode .contant_box_404 p { color: #94a3b8; }
+
+  /* Thanh tiến độ chạy mượt */
+  .progress-wrap {
+    width: 100%;
+    max-width: 300px;
+    height: 7px;
+    background: rgba(148, 163, 184, 0.25);
+    border-radius: 99px;
+    margin: 18px auto 6px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    width: 45%;
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #4351b5, #ec4899, #f59e0b, #10b981);
+    background-size: 200% 100%;
+    animation: progressMove 2.2s ease-in-out infinite;
+  }
+  @keyframes progressMove {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(240%); }
+  }
+
+  .tap-hint {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-bottom: 18px;
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
   .link_404 {
     color: #fff !important;
-    padding: 10px 20px;
-    background: #39ac31;
-    margin: 20px 0;
-    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #4351b5 0%, #6366f1 100%);
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     text-decoration: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 10px 22px rgba(67, 81, 181, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
-  .link_404:hover { background: #2f9328; }
+  .link_404:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(67, 81, 181, 0.45);
+  }
+
+  .btn-zap {
+    padding: 12px 18px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    background: rgba(245, 158, 11, 0.14);
+    color: #d97706;
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  body.dark-mode .btn-zap {
+    background: rgba(250, 204, 21, 0.14);
+    color: #fde047;
+    border-color: rgba(250, 204, 21, 0.35);
+  }
+  .btn-zap:hover {
+    transform: translateY(-2px);
+    background: rgba(245, 158, 11, 0.24);
+  }
 </style>
 </head>
 <body>
 
-<section class="page_404">
-  <div class="contant_box_404">
+<div id="zap-flash-overlay"></div>
 
-    <svg id="stage" viewBox="0 0 520 285" role="img" aria-label="404 - a caveman gets zapped by an electric cable">
+<section class="page_404">
+  <div class="contant_box_404" id="card-box">
+
+    <div class="status-pill">
+      <span class="status-dot"></span>
+      Đang cập nhật dữ liệu mới
+    </div>
+
+    <svg id="stage" viewBox="0 0 520 285" role="img" aria-label="Đang cập nhật" title="Bấm vào để giật điện ngay!">
       <defs>
         <pattern id="spots" width="13" height="11" patternUnits="userSpaceOnUse">
           <ellipse cx="3" cy="3" rx="2.1" ry="1.3" fill="#c9690f"/>
@@ -60,18 +257,26 @@
           <stop offset=".45" stop-color="#fff3a0" stop-opacity=".7"/>
           <stop offset="1" stop-color="#ffe45c" stop-opacity="0"/>
         </radialGradient>
+        <linearGradient id="updatingGrad" gradientUnits="userSpaceOnUse" x1="80" y1="0" x2="440" y2="0">
+          <stop offset="0%" stop-color="#4351b5">
+            <animate attributeName="stop-color" values="#4351b5;#ec4899;#f59e0b;#10b981;#4351b5" dur="5s" repeatCount="indefinite"/>
+          </stop>
+          <stop offset="50%" stop-color="#ec4899">
+            <animate attributeName="stop-color" values="#ec4899;#f59e0b;#10b981;#4351b5;#ec4899" dur="5s" repeatCount="indefinite"/>
+          </stop>
+          <stop offset="100%" stop-color="#10b981">
+            <animate attributeName="stop-color" values="#10b981;#4351b5;#ec4899;#f59e0b;#10b981" dur="5s" repeatCount="indefinite"/>
+          </stop>
+        </linearGradient>
       </defs>
 
       <!-- ===== scene ===== -->
       <g id="scene" fill="#ececec">
-        <!-- stacked stones (left) -->
         <path d="M128 262 C128 240 137 226 150 226 C163 226 172 240 172 262Z"/>
         <rect x="123" y="207" width="54" height="17" rx="8.5"/>
         <rect x="144" y="186" width="14" height="22" rx="7"/>
         <ellipse cx="150" cy="180" rx="8" ry="10"/>
-        <!-- tall rock (right) -->
         <path d="M383 262 V168 C383 128 400 110 419 110 C438 110 456 128 456 168 V262Z" fill="#ededed"/>
-        <!-- bushes -->
         <g fill="#3fb02f">
           <circle cx="122" cy="252" r="10"/><circle cx="133" cy="255" r="7.5"/><circle cx="112" cy="257" r="5.5"/>
           <ellipse cx="203" cy="260" rx="9" ry="3.5"/>
@@ -80,17 +285,23 @@
         </g>
       </g>
 
-      <text x="260" y="66" text-anchor="middle" font-family="Poppins, system-ui, sans-serif"
-            font-weight="500" font-size="60" fill="#333" letter-spacing="1">404</text>
+      <text x="385" y="66" text-anchor="end" font-family="Poppins, system-ui, sans-serif"
+            font-weight="800" font-size="58" fill="url(#updatingGrad)" letter-spacing="1.5">UPDATING</text>
+      <circle cx="399" cy="60" r="5.5" fill="url(#updatingGrad)">
+        <animate attributeName="cy" values="60;44;60;60" keyTimes="0;0.2;0.45;1" dur="1.4s" begin="0s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="416" cy="60" r="5.5" fill="url(#updatingGrad)">
+        <animate attributeName="cy" values="60;44;60;60" keyTimes="0;0.2;0.45;1" dur="1.4s" begin="0.2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="433" cy="60" r="5.5" fill="url(#updatingGrad)">
+        <animate attributeName="cy" values="60;44;60;60" keyTimes="0;0.2;0.45;1" dur="1.4s" begin="0.4s" repeatCount="indefinite"/>
+      </circle>
 
       <ellipse id="shadow" cx="260" cy="262" rx="24" ry="3" fill="#000" opacity=".1"/>
 
       <g id="actors">
-        <!-- ===== character ===== -->
         <g id="char">
           <g id="root">
-
-            <!-- legs -->
             <g id="legL">
               <rect class="skin" x="-5.5" y="-3" width="11" height="29" rx="5.5"/>
               <line class="bone" x1="0" y1="0" x2="0" y2="24"/>
@@ -109,8 +320,6 @@
                 <line class="bone" x1="0" y1="0" x2="0" y2="24"/>
               </g>
             </g>
-
-            <!-- torso -->
             <g id="torso">
               <rect class="skin" x="-16" y="-54" width="32" height="54" rx="8"/>
               <g id="ribs" class="boneset">
@@ -123,8 +332,6 @@
                 d="M-17 -52 C-22 -30 -24 -8 -23 8 L-17 4 L-11 9 L-5 4 L0 9 L5 4 L11 9 L17 4 L23 8 C24 -8 22 -30 17 -52 Q0 -38 -17 -52Z"/>
               <path id="tunicSpots" fill="url(#spots)"
                 d="M-17 -52 C-22 -30 -24 -8 -23 8 L-17 4 L-11 9 L-5 4 L0 9 L5 4 L11 9 L17 4 L23 8 C24 -8 22 -30 17 -52 Q0 -38 -17 -52Z"/>
-
-              <!-- head -->
               <g id="head">
                 <rect class="skin" x="-5.5" y="-12" width="11" height="14" rx="4"/>
                 <ellipse cx="0" cy="-30" rx="21" ry="19" fill="#6a3a1f"/>
@@ -136,11 +343,9 @@
                 <path fill="#6a3a1f" d="M-4 -44 C-7 -54 5 -57 7 -48 C3 -48 -1 -43 -4 -44Z"/>
                 <circle cx="-12.5" cy="-21.5" r="3.4" fill="#ee6f62" opacity=".5"/>
                 <circle cx="12.5" cy="-21.5" r="3.4" fill="#ee6f62" opacity=".5"/>
-                <!-- mouth -->
                 <ellipse id="mouth" cx="0" cy="-10" rx="4" ry="2.4" fill="#2b130b"/>
                 <rect id="teeth" x="-3.5" y="-13.5" width="7" height="2.6" rx="1" fill="#fff" opacity="0"/>
                 <path fill="#6a3a1f" d="M-11 -17 C-6 -22 -2 -19 0 -17 C2 -19 6 -22 11 -17 C6 -13 2 -14.5 0 -15 C-2 -14.5 -6 -13 -11 -17Z"/>
-                <!-- eyes -->
                 <g id="eyeL" transform="translate(-7 -28)">
                   <circle id="scL" r="4.6" fill="#fff" opacity="0"/>
                   <ellipse id="puL" rx="2.3" ry="2.9" fill="#2b1a12"/>
@@ -153,7 +358,6 @@
                 <path id="browR" d="M3 -35 Q7.5 -37.5 12 -35" stroke="#5a2f17" stroke-width="3" stroke-linecap="round" fill="none"/>
                 <circle id="gM" cx="0" cy="-10" r="0.1" fill="none"/>
               </g>
-              <!-- arm L (screen left) -->
               <g id="armL">
                 <rect class="skin" x="-4.2" y="-3" width="8.4" height="25" rx="4.2"/>
                 <line class="bone" x1="0" y1="0" x2="0" y2="21"/>
@@ -168,7 +372,6 @@
                   <circle id="gL" cx="0" cy="24" r="0.1" fill="none"/>
                 </g>
               </g>
-              <!-- arm R (screen right) -->
               <g id="armR">
                 <rect class="skin" x="-4.2" y="-3" width="8.4" height="25" rx="4.2"/>
                 <line class="bone" x1="0" y1="0" x2="0" y2="21"/>
@@ -179,12 +382,10 @@
                   <circle id="gR" cx="0" cy="24" r="0.1" fill="none"/>
                 </g>
               </g>
-
             </g>
           </g>
         </g>
 
-        <!-- ===== cables ===== -->
         <g id="plugs" fill="#1c1c1e">
           <rect x="181" y="257.5" width="10" height="9" rx="2"/>
           <rect x="172" y="259" width="10" height="2" rx="1"/>
@@ -194,7 +395,6 @@
         <path id="cordA" fill="none" stroke="#1c1c1e" stroke-width="3.6" stroke-linecap="round"/>
         <path id="cordB" fill="none" stroke="#1c1c1e" stroke-width="3.6" stroke-linecap="round"/>
 
-        <!-- ===== fx ===== -->
         <g id="fx">
           <circle id="flash" r="120" fill="url(#flashG)" opacity="0"/>
           <g id="bolts" fill="none" stroke="#fff6a8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -205,23 +405,35 @@
       </g>
     </svg>
 
-    <h3>Look like you're lost</h3>
-    <p>the page you are looking for is not available!</p>
-    <a href="index.html" class="link_404">Go to Home</a>
+    <h3>Mục này đang được hoàn thiện</h3>
+    <p>Chúng mình đang bổ sung thêm các đơn vị và liên kết mới.<br>Bạn vui lòng quay lại sau nhé!</p>
+
+    <div class="progress-wrap"><div class="progress-bar"></div></div>
+    <div class="tap-hint">💡 Mẹo: Chạm vào nhân vật phía trên để kích điện ngay!</div>
+
+    <div class="btn-group">
+      <button type="button" class="btn-zap" id="btn-trigger-zap">⚡ Giật điện ngay</button>
+      <a href="index.html" class="link_404">Quay về Trang chủ</a>
+    </div>
   </div>
 </section>
 
 <script>
-/* ===== script.js ===== */
+// Tự động đồng bộ Dark Mode từ Sổ Rèn Luyện
+if (localStorage.getItem('srl_theme') === 'dark') {
+  document.body.classList.add('dark-mode');
+}
+
 (() => {
   const $ = id => document.getElementById(id);
   const svg = $('stage');
+  const cardBox = $('card-box');
+  const flashOverlay = $('zap-flash-overlay');
   const GROUND = 262, LX = 186, RX = 376, FLOOR = { x: 292, y: GROUND };
-  const Z = -0.16;       // timing offset of everything after the zap
-  const ZT = 4.66 + Z;   // moment of the zap (4.5 s)
-  const T = 9.0 + Z;     // loop length (s)
+  const Z = -0.16;
+  const ZT = 4.66 + Z;
+  const T = 9.0 + Z;
 
-  /* ---------- helpers ---------- */
   const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
   const sm = x => { x = clamp(x); return x * x * (3 - 2 * x); };
   const win = (t, a, b, r = .2) => sm((t - a) / r) * (1 - sm((t - b) / r));
@@ -236,8 +448,6 @@
     lin: x => x
   };
 
-  /* ---------- pose defaults ----------
-     Angles: 0 = pointing down, +90 = left, 180 = up, -90 = right (absolute, relative to torso). */
   const START = {
     px: 260, py: 214, rot: 0, sx: 1, sy: 1, torso: 0, head: 0, lookX: 0, lookY: 1,
     aL: 20, fL: -110, aR: -20, fR: 110, tL: 3, sL: 0, tR: -3, sR: 0,
@@ -251,30 +461,29 @@
     xray: 1, glow: 1, wide: 1, mouth: 1, brow: 10, lift: 3, squint: 0, hot: 1, tightB: 1,
     Ahl: 0, Ahr: 0, Am: 0, Bhr: 0, Bm: 1, lookX: 0, lookY: 0, px: 260, py: 214 };
 
-  /* ---------- timeline (seconds) ---------- */
   const K = [
-    [0,    START],                                                                   // 1) both hands hold a plug each
+    [0,    START],
     [0.35, { alpha: 1 }],
-    [0.75, { lookY: 1.6, head: 3, brow: -2 }],                                         //    look at the plugs
+    [0.75, { lookY: 1.6, head: 3, brow: -2 }],
     [0.95, {}],
-    [1.4,  { aR: -142, fR: 168, head: -8, torso: -4, px: 258, lookY: -1.2, lookX: 1.2, // 2) right hand lifts its plug...
+    [1.4,  { aR: -142, fR: 168, head: -8, torso: -4, px: 258, lookY: -1.2, lookX: 1.2,
              brow: 4, lift: 1.5, mouth: .2 }],
-    [3.0,  {}],                                                                        //    ...and shakes it (procedural, see render)
-    [3.55, { aR: -155, fR: 64, head: 3, torso: 0, px: 260, lookX: 0, lookY: 1.6,       // 3) plug to the mouth
+    [3.0,  {}],
+    [3.55, { aR: -155, fR: 64, head: 3, torso: 0, px: 260, lookX: 0, lookY: 1.6,
              squint: .3, brow: -4, lift: 1, mouth: .05 }],
-    [3.78, { Bhr: 0, Bm: 1 }],                                                         //    sucking (procedural)
+    [3.78, { Bhr: 0, Bm: 1 }],
     [4.4,  {}],
-    [4.66 + Z, STAR],                                                                    // ZAP
-    [5.55 + Z, { py: 132, px: 262 }, 'out'],                                             // fly up to the 404
+    [4.66 + Z, STAR],
+    [5.55 + Z, { py: 132, px: 262 }, 'out'],
     [6.15 + Z, {}],
-    [6.28 + Z, { py: 136, xray: 0, glow: 0, hot: 0, tightB: 0, Bm: 0, wide: .4, mouth: .7,   // go limp
+    [6.28 + Z, { py: 136, xray: 0, glow: 0, hot: 0, tightB: 0, Bm: 0, wide: .4, mouth: .7,
              aL: 55, fL: 20, aR: -55, fR: -20, tL: 18, sL: 5, tR: -18, sR: -5, head: 6, lift: 0, brow: 6 }],
-    [6.5 + Z,  { py: 226, aL: 35, fL: -20, aR: -35, fR: 20, tL: 72, sL: -85, tR: -72, sR: 85, // fall & sit
+    [6.5 + Z,  { py: 226, aL: 35, fL: -20, aR: -35, fR: 20, tL: 72, sL: -85, tR: -72, sR: 85,
              wide: .2, mouth: .4, head: 2 }],
-    [6.72 + Z, { py: 248, sy: .94, wide: 0, mouth: .2, squint: .2, brow: 8, head: 0 }],        // land
+    [6.72 + Z, { py: 248, sy: .94, wide: 0, mouth: .2, squint: .2, brow: 8, head: 0 }],
     [6.84 + Z, { py: 244, sy: 1.02 }],
     [6.98 + Z, { py: 248, sy: 1 }],
-    [7.4 + Z,  { aL: 30, fL: -125, aR: -30, fR: 125, head: 3, mouth: .1, squint: .15 }],       // 5) chin on hands
+    [7.4 + Z,  { aL: 30, fL: -125, aR: -30, fR: 125, head: 3, mouth: .1, squint: .15 }],
     [8.5 + Z,  {}],
     [8.9 + Z,  { alpha: 0 }],
     [9.0 + Z,  { ...START, alpha: 0 }, 'lin']
@@ -300,7 +509,6 @@
     return o;
   }
 
-  /* ---------- cached nodes ---------- */
   const skins = [...document.querySelectorAll('.skin')];
   const bones = [...document.querySelectorAll('.bone')];
   const ribs = $('ribs');
@@ -325,23 +533,21 @@
   const BLINKS = [0.65, 3.3, 7.7 + Z, 8.2 + Z];
   const blinkAt = t => BLINKS.reduce((m, b) => Math.max(m, 1 - clamp(Math.abs(t - b) / .09)), 0);
 
-  /* ---------- render one frame ---------- */
   function render(t) {
     const s = sample(t);
 
-    /* procedural motion layered on the keyframes */
-    const shake = win(t, 1.55, 3.0, .15);          // shaking the plug
+    const shake = win(t, 1.55, 3.0, .15);
     s.fR += 20 * Math.sin(t * 19) * shake;
     s.aR += 5 * Math.sin(t * 19 + 1.3) * shake;
     s.head += 2 * Math.sin(t * 19 + 2.2) * shake;
-    s.sway = 9 * Math.sin(t * 19 + 2.8) * shake;   // the cable whips side to side
-    s.aL += .8 * Math.sin(t * 2.1);                // left hand idles
+    s.sway = 9 * Math.sin(t * 19 + 2.8) * shake;
+    s.aL += .8 * Math.sin(t * 2.1);
 
-        const calm = win(t, 7.3 + Z, 8.6 + Z, .3);
+    const calm = win(t, 7.3 + Z, 8.6 + Z, .3);
     s.head += 1.3 * Math.sin(t * 2.3) * calm;
     s.sy += .006 * Math.sin(t * 3) * calm;
 
-    const zap = sm((t - ZT) / .05) * (1 - sm((t - ZT - 1.49) / .1));      // 0..1 while being electrocuted
+    const zap = sm((t - ZT) / .05) * (1 - sm((t - ZT - 1.49) / .1));
     const jx = zap * (2.2 * Math.sin(t * 83) + 1.2 * Math.sin(t * 131));
     const jy = zap * (1.8 * Math.sin(t * 97 + 1));
     const jr = zap * 3.5 * Math.sin(t * 71);
@@ -350,7 +556,19 @@
     s.fL += zap * 6 * Math.sin(t * 79);  s.fR += zap * 6 * Math.sin(t * 89);
     s.glow *= .8 + .2 * Math.sin(t * 90);
 
-    // sucking on the plug: pursed lips pulsing, hand nudging the plug in/out, eyes on the cable
+    // Rung khung kính mờ + chớp sáng khi bị điện giật
+    if (zap > 0.3) {
+      const sx = (Math.sin(t * 95) * 4 * zap).toFixed(1);
+      const sy = (Math.cos(t * 110) * 3 * zap).toFixed(1);
+      cardBox.style.transform = `translate(${sx}px, ${sy}px)`;
+      cardBox.classList.add('zapping');
+      flashOverlay.style.opacity = (0.35 + 0.35 * Math.sin(t * 80)) * zap;
+    } else {
+      cardBox.style.transform = '';
+      cardBox.classList.remove('zapping');
+      flashOverlay.style.opacity = 0;
+    }
+
     const suck = win(t, 3.8, 4.4, .08);
     const pump = Math.sin(t * 17);
     s.mouth = s.mouth * (1 - suck) + suck * (-.15 + .25 * pump);
@@ -359,12 +577,10 @@
     s.squint = Math.max(s.squint, suck * .4);
     s.lift += suck * .8 * pump;
 
-    // free-fall (gravity) while dropping
     if (t >= ZT + 1.62 && t < ZT + 2.06) { const u = (t - ZT - 1.62) / .44; s.py = 136 + (248 - 136) * u * u; }
 
     s.blink = Math.max(s.blink, blinkAt(t));
 
-    /* skeleton transforms */
     el.root.setAttribute('transform', `translate(${s.px + jx} ${s.py + jy}) rotate(${s.rot + jr}) scale(${s.sx} ${s.sy})`);
     el.torso.setAttribute('transform', `rotate(${s.torso})`);
     el.head.setAttribute('transform', `translate(0 -50) rotate(${s.head})`);
@@ -378,7 +594,6 @@
     el.shinR.setAttribute('transform', `translate(0 24) rotate(${s.sR - s.tR})`);
     el.fingL.setAttribute('opacity', clamp(s.fing));
 
-    /* face */
     const lid = 1 - Math.max(s.blink * .95, s.squint * .55);
     const ey = Math.max(.06, lid) * (1 + .15 * s.wide);
     ['L', 'R'].forEach(k => {
@@ -393,7 +608,6 @@
     el.mouth.setAttribute('ry', Math.max(1.3, 1.6 + 5 * s.mouth));
     el.teeth.setAttribute('opacity', s.mouth > .6 ? 1 : 0);
 
-    /* x-ray look */
     const x = clamp(s.xray);
     const skin = mix('#f2b48d', '#ffd466', x);
     skins.forEach(n => { n.style.fill = skin; n.style.fillOpacity = 1 - .35 * x; });
@@ -406,7 +620,6 @@
     el.char.setAttribute('filter', s.glow > .02 ? 'url(#glow)' : 'none');
     el.glowColor.setAttribute('flood-opacity', clamp(s.glow));
 
-    /* cables */
     const hL = world(el.gL), hR = world(el.gR), mo = world(el.gM);
     const blend = (wl, wr, wm) => {
       let sum = wl + wr + wm; const n = sum > 1 ? sum : 1;
@@ -424,7 +637,6 @@
     el.cordB.setAttribute('stroke', mix('#1c1c1e', '#fff3a8', clamp(s.hot)));
     el.cordB.setAttribute('filter', s.hot > .05 ? 'url(#cordGlow)' : 'none');
 
-    /* fx */
     const cx = s.px + jx, cy = s.py + jy - 38;
     const fl = clamp(1 - (t - ZT) / .35) * (t >= ZT && t < ZT + .45 ? 1 : 0);
     el.flash.setAttribute('cx', cx); el.flash.setAttribute('cy', cy);
@@ -452,18 +664,33 @@
     el.actors.setAttribute('opacity', clamp(s.alpha));
   }
 
-  /* ---------- run ---------- */
-  window.__render = render;                         // handy for debugging: __render(4.9)
+  window.__render = render;
   const frozen = new URLSearchParams(location.search).get('t');
   if (frozen !== null) { render(parseFloat(frozen)); return; }
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) { render(8); return; }
 
-  const t0 = performance.now();
+  let t0 = performance.now();
+
+  // Chạm vào nhân vật hoặc bấm nút "Giật điện ngay" để tua tới đoạn giật điện
+  function triggerZapNow() {
+    t0 = performance.now() - (ZT * 1000);
+  }
+  svg.addEventListener('click', triggerZapNow);
+  $('btn-trigger-zap').addEventListener('click', triggerZapNow);
+
   (function loop(now) {
     render(((now - t0) / 1000) % T);
     requestAnimationFrame(loop);
   })(t0);
 })();
+document.addEventListener('DOMContentLoaded', function () {
+  const savedLang = localStorage.getItem('srl_lang') || localStorage.getItem('lang') || 'vi';
+  if (typeof setLanguage === 'function') {
+    setLanguage(savedLang);
+  } else if (typeof applyTranslations === 'function') {
+    applyTranslations(savedLang);
+  }
+});
 </script>
 </body>
 </html>
