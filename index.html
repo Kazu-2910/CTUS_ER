@@ -3108,9 +3108,9 @@
                                 </select>
                             </div>
                             <div style="display: flex; gap: 10px; margin-left: auto; flex-wrap: wrap;">
-                                <button onclick="restoreDefault49Points()" class="btn" style="background-color: #3b82f6;" onmouseover="this.style.backgroundColor='#2563eb'" onmouseout="this.style.backgroundColor='#3b82f6'" title="Khôi phục 6 tiêu chí mặc định (tổng 49 điểm) nếu lỡ xóa nhầm">
+                                <button onclick="restoreDefault49Points()" class="btn" style="background-color: #3b82f6;" onmouseover="this.style.backgroundColor='#2563eb'" onmouseout="this.style.backgroundColor='#3b82f6'" title="Khôi phục 6 tiêu chí mặc định (tổng 50 điểm) nếu lỡ xóa nhầm">
                                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
-                                    Thêm 49đ mặc định
+                                    Thêm 50 điểm mặc định
                                 </button>
                                 <button onclick="deleteAllActivities()" class="btn" style="background-color: #ef4444;" onmouseover="this.style.backgroundColor='#dc2626'" onmouseout="this.style.backgroundColor='#ef4444'" title="Xóa toàn bộ dữ liệu">
                                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
@@ -6483,7 +6483,7 @@ function updateLoginBoxView(isLoggedIn) {
                     code: "IV.a ", name: "Tích cực tham gia tuyên truyền các chủ trương của Đảng, chính sách, pháp luật của Nhà nước trong cộng đồng. Không vi phạm pháp luật của Nhà nước (Nếu vi phạm pháp luật sẽ bị điểm 0 (điểm không))", org: "", date: "", points: 8, criteria: "IV", l1: "a", l2: "a1", l3: "0"
                 },
                 {
-                    code: "IV.b ", name: "Có tinh thần giúp đỡ bạn bè trong học tập, trong cuộc sống", org: "", date: "", points: 2, criteria: "IV", l1: "b", l2: "b1", l3: "1"
+                    code: "III.c", name: "Tham gia hoạt động tuyên truyền, phòng chống tội phạm và các tệ nạn xã hội (Mỗi lần tham gia được 3 điểm)", org: "", date: "", points: 3, criteria: "III", l1: "c", l2: "c1", l3: "0"
                 }
             ];
 
@@ -6510,7 +6510,7 @@ function updateLoginBoxView(isLoggedIn) {
             }
 
             if (addedCount === 0) {
-                alert('Tất cả 6 tiêu chí mặc định (49 điểm) đều đã có sẵn trong nhật ký rồi!');
+                alert('Tất cả 6 tiêu chí mặc định (50 điểm) đều đã có sẵn trong nhật ký rồi!');
                 return;
             }
 
